@@ -20,11 +20,7 @@
 
     <!-- We're showing the players here -->
     <div v-if="players.length" class="row row-cols-1 row-cols-md-2 g-3">
-      <div v-for="player in players" :key="player.id" class="col">
-        <div class="card">
-          <div class="card-body">{{ player.name }}</div>
-        </div>
-      </div>
+      <PlayerList :players="players" />
     </div>
 
     <!-- Loading message -->
@@ -37,10 +33,14 @@
 </template>
 
 <script>
+/* Composables */
 import getPlayers from "@/composables/getPlayers";
+/* Components */
+import PlayerList from "@/components/Players/PlayerList.vue";
 
 export default {
   name: "PlayersView",
+  components: { PlayerList },
   setup() {
     const { players, error, load } = getPlayers();
 
