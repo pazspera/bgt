@@ -1,8 +1,12 @@
 <template>
   <div class="col">
     <div class="card">
-      <div class="card-body">
-        <p>{{ player.name }}</p>
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <p class="m-0">{{ player.name }}</p>
+        <div class="icons">
+          <span class="material-icons"> edit </span>
+          <span class="material-icons"> delete </span>
+        </div>
       </div>
     </div>
   </div>
