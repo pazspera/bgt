@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/main.scss";
+
 .material-icons {
   cursor: pointer;
   color: darkslategrey;

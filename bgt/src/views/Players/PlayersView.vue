@@ -3,7 +3,7 @@
   <div class="container">
     <!-- Nav tabs -->
     <div class="row">
-      <div class="col-6 offset-3">
+      <div class="col-6 offset-3 mb-3">
         <nav class="nav nav-pills nav-justified">
           <a class="nav-link active" aria-current="page" href="#">Todes les jugadores</a>
           <a class="nav-link" href="#">Agregar nuevo jugador</a>
@@ -66,4 +66,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import "@/assets/scss/main.scss";
+</style>
