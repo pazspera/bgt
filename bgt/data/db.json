@@ -7,6 +7,14 @@
     {
       "id": 2,
       "name": "Mareita"
+    },
+    {
+      "name": "Bruce",
+      "id": 3
+    },
+    {
+      "name": "Diana",
+      "id": 4
     }
   ]
 }

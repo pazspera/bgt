@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import PlayersView from "@/views/Players/PlayersView.vue";
+import AddPlayerView from "@/views/Players/AddPlayerView.vue";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: "/jugadores",
     name: "Players",
     component: PlayersView,
+  },
+  {
+    path: "/agregar-jugador",
+    name: "AddPlayer",
+    component: AddPlayerView,
   },
 ];
 
