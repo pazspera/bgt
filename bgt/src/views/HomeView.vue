@@ -14,6 +14,9 @@
 export default {
   name: "HomeView",
   components: {},
+  mounted() {
+    document.title = "Home - Board Game Tracker";
+  }
 };
 </script>
 

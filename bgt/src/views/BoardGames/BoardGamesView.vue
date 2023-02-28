@@ -5,6 +5,9 @@
 <script>
 export default {
   name: "BoardGamesView",
+  mounted() {
+    document.title = "Juegos - Board Game Tracker";
+  },
 };
 </script>
 

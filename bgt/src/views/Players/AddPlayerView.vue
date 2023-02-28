@@ -22,6 +22,9 @@ export default {
       newPlayerName: "",
     };
   },
+  mounted(){
+    document.title = "Agregar Jugador - Board Game Tracker";
+  },
   methods: {
     handleSubmit() {
       let player = {

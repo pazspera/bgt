@@ -6,7 +6,7 @@
       <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 mb-3">
         <nav class="nav nav-pills nav-justified">
           <a class="nav-link active" aria-current="page" href="#">Todes les jugadores</a>
-          <router-link class="nav-link" :to="{name: 'AddPlayer'}">Agregar nuevo jugador</router-link>
+          <router-link class="nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevo jugador</router-link>
         </nav>
       </div>
     </div>
@@ -48,19 +48,23 @@ export default {
     };
   },
   mounted() {
-    fetch("http://localhost:3000/players")
-      .then((res) => res.json())
-      .then((data) => (this.players = data))
-      .catch((err) => {
-        console.log(err);
-        this.error = err;
-      });
+    this.getPlayers();
+    document.title = "Jugadores - Board Game Tracker";
   },
   methods: {
     handleDelete(id) {
       this.players = this.players.filter((player) => {
         return player.id !== id;
       });
+    },
+    async getPlayers() {
+      try {
+        fetch("http://localhost:3000/players")
+          .then((res) => res.json())
+          .then((data) => (this.players = data));
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
