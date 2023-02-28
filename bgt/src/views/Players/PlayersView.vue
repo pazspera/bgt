@@ -3,10 +3,10 @@
   <div class="container">
     <!-- Nav tabs -->
     <div class="row">
-      <div class="col-6 offset-3 mb-3">
+      <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 mb-3">
         <nav class="nav nav-pills nav-justified">
           <a class="nav-link active" aria-current="page" href="#">Todes les jugadores</a>
-          <a class="nav-link" href="#">Agregar nuevo jugador</a>
+          <router-link class="nav-link" :to="{name: 'AddPlayer'}">Agregar nuevo jugador</router-link>
         </nav>
       </div>
     </div>
