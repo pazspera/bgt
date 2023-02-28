@@ -19,14 +19,14 @@
     </div>
 
     <!-- We're showing the players here -->
-    <div v-if="players.length" class="row row-cols-1 row-cols-md-2 g-3">
-      <div v-for="player in players" :key="player.id" class="col">
-        <PlayerCard :player="player" @deletePlayer="handleDelete(player.id)" />
+    <div v-if="localPlayers.players.length" class="row row-cols-1 row-cols-md-2 g-3">
+      <div v-for="player in localPlayers.players" :key="player.id" class="col">
+        <PlayerCard :player="player" @delete="handleDelete(player.id)" />
       </div>
     </div>
 
     <!-- Loading message -->
-    <div v-if="!players.length && !error" class="row">
+    <div v-if="!localPlayers.players.length && !error" class="row">
       <div class="col">
         <p>Loading...</p>
       </div>
@@ -35,33 +35,34 @@
 </template>
 
 <script>
+import { reactive } from "vue";
+/* Composables */
+import getPlayers from "@/composables/getPlayers";
 /* Components */
 import PlayerCard from "@/components/Players/PlayerCard.vue";
 
 export default {
   name: "PlayersView",
   components: { PlayerCard },
-  data() {
-    return {
-      players: [],
-      error: "",
-    };
-  },
-  mounted() {
-    fetch("http://localhost:3000/players")
-      .then((res) => res.json())
-      .then((data) => (this.players = data))
-      .catch((err) => {
-        console.log(err);
-        this.error = err;
-      });
-  },
-  methods: {
-    handleDelete(id) {
-      this.players = this.players.filter((player) => {
+  setup() {
+    let { players, error, load } = getPlayers();
+
+    let localPlayers = reactive({ players: players });
+
+    load();
+
+    const handleDelete = (id) => {
+      // Gets the deleted id from the PlayerCard
+      // Then we filter the players array to remove the deleted player from the list
+      localPlayers = localPlayers.value.filter((player) => {
         return player.id !== id;
       });
-    },
+
+      load();
+      localPlayers = players;
+    };
+
+    return { localPlayers, error, load, handleDelete };
   },
 };
 </script>
