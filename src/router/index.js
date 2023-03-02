@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import PlayersView from "@/views/Players/PlayersView.vue";
-import AddPlayerView from "@/views/Players/AddPlayerView.vue";
-import BoardGamesView from "@/views/BoardGames/BoardGamesView.vue";
-import GamesView from "@/views/Games/GamesView.vue";
 
 const routes = [
   {
@@ -14,22 +10,22 @@ const routes = [
   {
     path: "/jugadores",
     name: "Players",
-    component: PlayersView,
+    component: () => import(/* webpackChunkName: "Players" */ "@/views/Players/PlayersView.vue"),
   },
   {
     path: "/agregar-jugador",
     name: "AddPlayer",
-    component: AddPlayerView,
+    component: () => import(/* webpackChunkName: "AddPlayer" */ "@/views/Players/AddPlayerView.vue"),
   },
   {
     path: "/juegos",
     name: "BoardGames",
-    component: BoardGamesView,
+    component: () => import(/* webpackChunkName: "BoardGames */ "@/views/BoardGames/BoardGamesView.vue"),
   },
   {
     path: "/partidas",
     name: "Games",
-    component: GamesView,
+    component: () => import(/* webpackChunkName: "Games" */ "@/views/Games/GamesView.vue"),
   },
 ];
 
