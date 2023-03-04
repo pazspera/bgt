@@ -9,8 +9,16 @@
       "name": "Mareita"
     },
     {
-      "name": "Bruce",
-      "id": 3
+      "id": 3,
+      "name": "Bruce"
+    },
+    {
+      "id": 4,
+      "name": "Clark"
+    },
+    {
+      "id": 5,
+      "name": "Diana"
     }
   ]
 }
