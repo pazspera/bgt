@@ -1,6 +1,6 @@
 <template>
-  <h1>Players View</h1>
-  <div class="container">
+  <HeroSection :title="heroTitle" :bg-class="bgClass" />
+  <div class="container my-5">
     <!-- Nav tabs -->
     <div class="row">
       <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 mb-3">
@@ -37,14 +37,17 @@
 <script>
 /* Components */
 import PlayerCard from "@/components/Players/PlayerCard.vue";
+import HeroSection from "@/components/HeroSection.vue";
 
 export default {
   name: "PlayersView",
-  components: { PlayerCard },
+  components: { PlayerCard, HeroSection },
   data() {
     return {
       players: [],
       error: "",
+      heroTitle: "Jugadores",
+      bgClass: "playersBg",
     };
   },
   mounted() {
