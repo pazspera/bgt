@@ -35,6 +35,7 @@ export default {
   },
   mounted() {
     this.getPlayers();
+    document.title = "Jugadores - Board Game Tracker";
   },
   methods: {
     handleDelete(id) {

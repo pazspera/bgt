@@ -56,7 +56,7 @@ export default {
   display: block;
   font-family: $font-text;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
 }
 
 .router-link-exact-active {

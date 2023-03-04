@@ -70,7 +70,7 @@ h6 {
 .btn {
   border-radius: 0;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1rem;
 
   &__primary {
@@ -85,16 +85,16 @@ h6 {
 
   &__primary,
   &__secondary {
-    background-color: $primary-medium;
+    background-color: $primary-light;
     color: $white;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     &:hover,
     &:focus,
     &:active {
       background-color: $black;
       color: $white;
-      transition: all 0.5s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
 
     &:focus {

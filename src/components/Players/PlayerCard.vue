@@ -1,7 +1,7 @@
 <template>
-  <div class="card">
+  <div class="card player-card p-2">
     <div class="card-body d-flex justify-content-between align-items-center">
-      <p class="m-0">{{ player.name }}</p>
+      <p class="m-0 player-name">{{ player.name }}</p>
       <div class="icons">
         <span class="material-icons"> edit </span>
         <span @click="deletePlayer" class="material-icons"> delete </span>
@@ -42,5 +42,13 @@ export default {
     color: $gray-dark;
     opacity: 0.6;
   }
+}
+.player-card {
+  border-radius: 0;
+  border: none;
+}
+
+.player-name {
+  font-size: $size5;
 }
 </style>
