@@ -16,17 +16,18 @@
   <!-- Loading message -->
   <div v-if="!players.length && !error" class="row">
     <div class="col">
-      <p>Loading...</p>
+      <LoadingSpinner />
     </div>
   </div>
 </template>
 
 <script>
 import PlayerCard from "@/components/Players/PlayerCard.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "PlayersList",
-  components: { PlayerCard },
+  components: { PlayerCard, LoadingSpinner },
   data() {
     return {
       players: [],
