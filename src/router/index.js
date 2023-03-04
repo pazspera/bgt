@@ -10,17 +10,25 @@ const routes = [
   {
     path: "/jugadores",
     name: "Players",
-    component: () => import(/* webpackChunkName: "Players" */ "@/views/Players/PlayersView.vue"),
-  },
-  {
-    path: "/agregar-jugador",
-    name: "AddPlayer",
-    component: () => import(/* webpackChunkName: "AddPlayer" */ "@/views/Players/AddPlayerView.vue"),
+    redirect: { name: "PlayersList" },
+    component: () => import(/* webpackChunkName: "Players"*/ "@/views/Players/PlayersView.vue"),
+    children: [
+      {
+        path: "/agregar-jugador",
+        name: "AddPlayer",
+        component: () => import(/* webpackChunkName: "AddPlayer"*/ "@/views/Players/AddPlayerView.vue"),
+      },
+      {
+        path: "",
+        name: "PlayersList",
+        component: () => import(/*webpackChunkName: "PlayersList"*/ "@/views/Players/PlayersList.vue"),
+      },
+    ],
   },
   {
     path: "/juegos",
     name: "BoardGames",
-    component: () => import(/* webpackChunkName: "BoardGames */ "@/views/BoardGames/BoardGamesView.vue"),
+    component: () => import(/* webpackChunkName: "BoardGames*/ "@/views/BoardGames/BoardGamesView.vue"),
   },
   {
     path: "/partidas",
