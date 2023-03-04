@@ -36,10 +36,11 @@ export default {
 
 .material-icons {
   cursor: pointer;
-  color: darkslategrey;
+  color: $gray-darker;
 
   &:hover {
-    color: lightslategrey;
+    color: $gray-dark;
+    opacity: 0.6;
   }
 }
 </style>

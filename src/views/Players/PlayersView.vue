@@ -15,10 +15,10 @@
 
     <!-- Acá va la prueba con el nuevo router-link -->
     <div class="row">
-      <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 mb-3">
+      <div class="col-12 col-lg-8 offset-lg-2 col-xxl-6 offset-xxl-3 mb-5">
         <nav class="nav nav-pills nav-justified">
-          <router-link class="nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
-          <router-link class="nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevo jugador</router-link>
+          <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
+          <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
         </nav>
       </div>
       <div class="col-12">
@@ -48,6 +48,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/main.scss";
+.internal-nav-link {
+  color: $black !important;
+  padding: 0.5rem 1rem;
+  display: block;
+  font-family: $font-text;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.router-link-exact-active {
+  background-color: $primary-light;
+  color: $white !important;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
+}
 </style>
