@@ -11,64 +11,27 @@
       </div>
     </div>
 
-    <!-- Error -->
-    <div v-if="error" class="row">
-      <div class="col">
-        <p>{{ error }}</p>
-      </div>
-    </div>
-
-    <!-- We're showing the players here -->
-    <div v-if="players.length" class="row row-cols-1 row-cols-md-2 g-3">
-      <div v-for="player in players" :key="player.id" class="col">
-        <PlayerCard :player="player" @deletePlayer="handleDelete(player.id)" />
-      </div>
-    </div>
-
-    <!-- Loading message -->
-    <div v-if="!players.length && !error" class="row">
-      <div class="col">
-        <p>Loading...</p>
-      </div>
-    </div>
+    <!-- Player List -->
+    <PlayerList />
   </div>
 </template>
 
 <script>
 /* Components */
-import PlayerCard from "@/components/Players/PlayerCard.vue";
+import PlayerList from "@/views/Players/PlayersList.vue";
 import HeroSection from "@/components/HeroSection.vue";
 
 export default {
   name: "PlayersView",
-  components: { PlayerCard, HeroSection },
+  components: { PlayerList, HeroSection },
   data() {
     return {
-      players: [],
-      error: "",
       heroTitle: "Jugadores",
       bgClass: "playersBg",
     };
   },
   mounted() {
-    this.getPlayers();
     document.title = "Jugadores - Board Game Tracker";
-  },
-  methods: {
-    handleDelete(id) {
-      this.players = this.players.filter((player) => {
-        return player.id !== id;
-      });
-    },
-    async getPlayers() {
-      try {
-        fetch("http://localhost:3000/players")
-          .then((res) => res.json())
-          .then((data) => (this.players = data));
-      } catch (err) {
-        console.log(err);
-      }
-    },
   },
 };
 </script>
