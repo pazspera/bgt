@@ -37,6 +37,18 @@ export const usePlayerStore = defineStore("playerStore", {
         id: 8,
       },
     ],
-    name: 'Bruce'
+    name: "Bruce",
   }),
+  getters: {
+    // can't use "this" inside the arrow function
+    // we need to pass the state as an argument
+    totalCount: (state) => {
+      return state.players.length;
+    },
+  },
+  actions: {
+    addPlayer(player) {
+      this.players.push(player);
+    },
+  },
 });

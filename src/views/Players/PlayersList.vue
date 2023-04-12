@@ -1,13 +1,13 @@
 <template>
   <!-- Players list -->
-  <div v-if="playerStore.players.length" class="row row-cols-1 row-cols-md-2 g-3">
+  <div v-if="playerStore.totalCount" class="row row-cols-1 row-cols-md-2 g-3">
     <div v-for="player in playerStore.players" :key="player.id">
       <PlayerCard :player="player" />
     </div>
   </div>
 
   <!-- Loading message -->
-  <div v-if="!playerStore.players.length" class="row">
+  <div v-if="!playerStore.totalCount" class="row">
     <div class="col">
       <LoadingSpinner/>
     </div>
@@ -24,6 +24,8 @@ export default {
   components: { PlayerCard, LoadingSpinner },
   setup() {
     const playerStore = usePlayerStore();
+
+    console.log(playerStore.totalCount)
 
     return { playerStore };
   },

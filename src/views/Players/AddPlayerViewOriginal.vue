@@ -16,29 +16,51 @@
 </template>
 
 <script>
-import { usePlayerStore } from "@/stores/PlayerStore";
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-
 export default {
   name: "AddPlayerView",
-  /* data() {
+  data() {
     return {
       newPlayerName: "",
       players: [],
       error: "",
     };
-  }, */
+  },
+  created() {
+    this.getPlayers();
+    console.log(this.players);
+  },
   mounted() {
     document.title = "Agregar Jugador - Board Game Tracker";
   },
-  setup() {
-    const playerStore = usePlayerStore();
-    const newPlayerName = ref("");
-    const router = useRouter();
-    const route = useRoute();
+  methods: {
+    handleSubmit() {
+      let capitalizedName = this.capitalizeString(this.newPlayerName);
 
-    const capitalizeString = (string) => {
+      let player = {
+        name: capitalizedName,
+      };
+
+      console.log(this.players);
+
+      if (!this.players.includes(player.name)) {
+        fetch("http://localhost:3000/players", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(player),
+        })
+          .then(() => {
+            this.$router.push({ name: "Players" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        this.error = "Jugador ya existente, probá con otro nombre";
+      }
+
+      console.log(player);
+    },
+    capitalizeString(string) {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
       let capitalizedString;
 
@@ -51,25 +73,16 @@ export default {
       capitalizedString = arrayOfWords.map(capitalizeWord).join(" ");
 
       return capitalizedString;
-    };
-
-    const handleSubmit = () => {
-      // capitalize all names to make sure there
-      // are no duplicates
-      let capitalizedName = capitalizeString(newPlayerName.value);
-
-      // checks if there is a value on the input
-      if (newPlayerName.value.length > 0) {
-        playerStore.addPlayer({
-          id: playerStore.totalCount + 1,
-          name: capitalizedName,
-        });
-
-        router.push({ name: "Players" });
+    },
+    async getPlayers() {
+      try {
+        fetch("http://localhost:3000/players")
+          .then((res) => res.json())
+          .then((data) => (this.players = data));
+      } catch (err) {
+        console.log(err);
       }
-    };
-
-    return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route };
+    },
   },
 };
 </script>
