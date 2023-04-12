@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container add-player">
     <div class="row">
       <div class="col">
         <form @submit.prevent="handleSubmit">
@@ -7,7 +7,7 @@
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="newPlayerName" class="form-control" required />
           </div>
-          <p v-if="error">{{ error }}</p>
+          <!-- <p v-if="error">{{ error }}</p> -->
           <button type="submit" class="btn btn__primary">Agregar jugador</button>
         </form>
       </div>
@@ -76,4 +76,8 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/main.scss";
+
+.add-player {
+  min-height: 50vh;
+}
 </style>

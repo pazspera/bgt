@@ -9,7 +9,7 @@
   <!-- Loading message -->
   <div v-if="!playerStore.totalCount" class="row">
     <div class="col">
-      <LoadingSpinner/>
+      <LoadingSpinner />
     </div>
   </div>
 </template>
@@ -22,10 +22,13 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 export default {
   name: "PlayersList",
   components: { PlayerCard, LoadingSpinner },
+  mounted() {
+    document.title = "Jugadores - Board Game Tracker";
+  },
   setup() {
     const playerStore = usePlayerStore();
 
-    console.log(playerStore.totalCount)
+    console.log(playerStore.totalCount);
 
     return { playerStore };
   },

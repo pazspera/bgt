@@ -50,5 +50,10 @@ export const usePlayerStore = defineStore("playerStore", {
     addPlayer(player) {
       this.players.push(player);
     },
+    deletePlayer(id) {
+      this.players = this.players.filter((p) => {
+        return p.id !== id;
+      });
+    },
   },
 });

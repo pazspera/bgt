@@ -4,22 +4,29 @@
       <p class="m-0 player-name">{{ player.name }}</p>
       <div class="icons">
         <span class="material-icons"> edit </span>
-        <span @click="playerStore.deletePlayer(player.id)" class="material-icons"> delete </span>
+        <span @click="deletePlayer" class="material-icons"> delete </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { usePlayerStore } from "@/stores/PlayerStore";
-
 export default {
   name: "PlayerCard",
   props: ["player"],
-  setup() {
-    const playerStore = usePlayerStore();
+  setup(props, context) {
+    const deletePlayer = () => {
+      let uri = `http://localhost:3000/players/${props.player.id}`;
+      fetch(uri, {
+        method: "DELETE",
+      })
+        .then(() => {
+          context.emit("deletePlayer", props.player.id);
+        })
+        .catch((err) => console.log(err));
+    };
 
-    return { playerStore };
+    return { deletePlayer };
   },
 };
 </script>
