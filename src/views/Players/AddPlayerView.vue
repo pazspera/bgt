@@ -1,15 +1,19 @@
 <template>
   <div class="container add-player">
     <div class="row">
-      <div class="col">
+      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form @submit.prevent="handleSubmit">
           <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="newPlayerName" class="form-control" required />
           </div>
-          <!-- <p v-if="error">{{ error }}</p> -->
           <button type="submit" class="btn btn__primary">Agregar jugador</button>
         </form>
+      </div>
+      <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-4">
+        <div v-if="error" class="alert alert-warning" role="alert">
+          <p class="mb-0">{{ error }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +41,7 @@ export default {
     const newPlayerName = ref("");
     const router = useRouter();
     const route = useRoute();
+    let error = ref("");
 
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
@@ -59,9 +64,13 @@ export default {
 
       let capitalizedName = capitalizeString(newPlayerName.value);
 
-      // checks if there is a value on the input
-      // also use 
-      if (newPlayerName.value.length > 0) {
+      // also use checkIfPlayerAlreadyExists() to see if the player name
+      // already exists (returns true if it exists)
+      if (playerStore.checkIfPlayerAlreadyExists(newPlayerName.value)) {
+        // player already exists
+        error.value = `Ya existe une jugador con el nombre "${newPlayerName.value}". ¡Elige otro nombre!`;
+        newPlayerName.value = "";
+      } else {
         playerStore.addPlayer({
           name: capitalizedName,
         });
@@ -70,7 +79,7 @@ export default {
       }
     };
 
-    return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route };
+    return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route, error };
   },
 };
 </script>

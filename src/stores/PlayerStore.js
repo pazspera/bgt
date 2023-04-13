@@ -27,13 +27,12 @@ export const usePlayerStore = defineStore("playerStore", {
       });
       // if it returns true, the player name
       // is already in players[]
-      return console.log(result.length > 0);
+      return result.length > 0;
     },
     async addPlayer(player) {
       // before adding the player, check if it's already on players
       // this should be on another action so I can call it
       // when I edit and check if the new name is in players
-      this.checkIfPlayerAlreadyExists(player.name);
 
       this.players.push(player);
 
