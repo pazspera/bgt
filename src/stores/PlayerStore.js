@@ -15,7 +15,7 @@ export const usePlayerStore = defineStore("playerStore", {
   },
   actions: {
     async getPlayers() {
-      const res = await fetch("http://localhost:3000/players");
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL);
       const data = await res.json();
 
       this.players = data;
@@ -34,7 +34,7 @@ export const usePlayerStore = defineStore("playerStore", {
 
       this.players.push(player);
 
-      const res = await fetch("http://localhost:3000/players", {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL, {
         method: "POST",
         body: JSON.stringify(player),
         headers: { "Content-Type": "application/json" },
@@ -49,7 +49,7 @@ export const usePlayerStore = defineStore("playerStore", {
         return p.id !== id;
       });
 
-      const res = await fetch(`http://localhost:3000/players/${id}`, {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + `/${id}`, {
         method: "DELETE",
       });
 
