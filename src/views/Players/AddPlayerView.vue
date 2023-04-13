@@ -60,6 +60,7 @@ export default {
       let capitalizedName = capitalizeString(newPlayerName.value);
 
       // checks if there is a value on the input
+      // also use 
       if (newPlayerName.value.length > 0) {
         playerStore.addPlayer({
           name: capitalizedName,

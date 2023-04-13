@@ -22,9 +22,12 @@ export const usePlayerStore = defineStore("playerStore", {
     },
     checkIfPlayerAlreadyExists(name) {
       let result = this.players.filter((player) => {
-        return player.name !== name;
+        // if it matches, it's already in players
+        return player.name === name;
       });
-      return console.log(`check if player exists: ${result}`);
+      // if it returns true, the player name
+      // is already in players[]
+      return console.log(result.length > 0);
     },
     async addPlayer(player) {
       // before adding the player, check if it's already on players
