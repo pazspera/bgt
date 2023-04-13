@@ -56,12 +56,13 @@ export default {
     const handleSubmit = () => {
       // capitalize all names to make sure there
       // are no duplicates
+      console.log(`playerStore count: ${playerStore.totalCount}`);
+
       let capitalizedName = capitalizeString(newPlayerName.value);
 
       // checks if there is a value on the input
       if (newPlayerName.value.length > 0) {
         playerStore.addPlayer({
-          id: playerStore.totalCount + 1,
           name: capitalizedName,
         });
 

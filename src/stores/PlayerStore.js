@@ -3,40 +3,7 @@ import { defineStore } from "pinia";
 export const usePlayerStore = defineStore("playerStore", {
   state: () => ({
     // array of objects for the players
-    players: [
-      {
-        id: 1,
-        name: "Zeuchi",
-      },
-      {
-        id: 2,
-        name: "Mareita",
-      },
-      {
-        id: 3,
-        name: "Bruce",
-      },
-      {
-        id: 4,
-        name: "Clark",
-      },
-      {
-        id: 5,
-        name: "Diana",
-      },
-      {
-        name: "Test",
-        id: 6,
-      },
-      {
-        name: "Bruce",
-        id: 7,
-      },
-      {
-        name: "Clark",
-        id: 8,
-      },
-    ],
+    players: [],
     name: "Bruce",
   }),
   getters: {
@@ -47,13 +14,39 @@ export const usePlayerStore = defineStore("playerStore", {
     },
   },
   actions: {
-    addPlayer(player) {
-      this.players.push(player);
+    async getPlayers() {
+      const res = await fetch("http://localhost:3000/players");
+      const data = await res.json();
+
+      this.players = data;
     },
-    deletePlayer(id) {
+    async addPlayer(player) {
+      // add a new id to player, if not it doesn't post it
+      console.log(player);
+      this.players.push(player);
+
+      const res = await fetch("http://localhost:3000/players", {
+        method: "POST",
+        body: JSON.stringify(player),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.error) {
+        console.log(res.error);
+      }
+    },
+    async deletePlayer(id) {
       this.players = this.players.filter((p) => {
         return p.id !== id;
       });
+
+      const res = await fetch(`http://localhost:3000/players/${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.error) {
+        console.log(res.error);
+      }
     },
   },
 });
