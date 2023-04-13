@@ -56,7 +56,6 @@ export default {
     const handleSubmit = () => {
       // capitalize all names to make sure there
       // are no duplicates
-      console.log(`playerStore count: ${playerStore.totalCount}`);
 
       let capitalizedName = capitalizeString(newPlayerName.value);
 

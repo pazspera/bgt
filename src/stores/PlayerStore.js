@@ -20,9 +20,18 @@ export const usePlayerStore = defineStore("playerStore", {
 
       this.players = data;
     },
+    checkIfPlayerAlreadyExists(name) {
+      let result = this.players.filter((player) => {
+        return player.name !== name;
+      });
+      return console.log(`check if player exists: ${result}`);
+    },
     async addPlayer(player) {
-      // add a new id to player, if not it doesn't post it
-      console.log(player);
+      // before adding the player, check if it's already on players
+      // this should be on another action so I can call it
+      // when I edit and check if the new name is in players
+      this.checkIfPlayerAlreadyExists(player.name);
+
       this.players.push(player);
 
       const res = await fetch("http://localhost:3000/players", {

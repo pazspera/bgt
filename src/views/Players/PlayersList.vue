@@ -31,8 +31,6 @@ export default {
     // fetch players
     playerStore.getPlayers();
 
-    console.log(playerStore.totalCount);
-
     return { playerStore };
   },
 };
