@@ -20,6 +20,14 @@ export const usePlayerStore = defineStore("playerStore", {
 
       this.players = data;
     },
+    async getPlayer(id) {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id);
+      const data = await res.json();
+      console.log("in getplayer");
+      console.log(data);
+
+      return data;
+    },
     checkIfPlayerAlreadyExists(name) {
       let result = this.players.filter((player) => {
         // if it matches, it's already in players
@@ -51,7 +59,7 @@ export const usePlayerStore = defineStore("playerStore", {
         return p.id !== id;
       });
 
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + `/${id}`, {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id, {
         method: "DELETE",
       });
 

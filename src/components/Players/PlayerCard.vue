@@ -3,7 +3,9 @@
     <div class="card-body d-flex justify-content-between align-items-center">
       <p class="m-0 player-name">{{ player.name }}</p>
       <div class="icons">
-        <span class="material-icons"> edit </span>
+        <router-link :to="{ name: 'EditPlayer', params: { id: player.id } }">
+          <span class="material-icons"> edit </span>
+        </router-link>
         <span @click="playerStore.deletePlayer(player.id)" class="material-icons"> delete </span>
       </div>
     </div>

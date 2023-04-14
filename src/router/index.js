@@ -23,6 +23,12 @@ const routes = [
         name: "PlayersList",
         component: () => import(/*webpackChunkName: "PlayersList"*/ "@/views/Players/PlayersList.vue"),
       },
+      {
+        path: "/editar-jugador/:id",
+        name: "EditPlayer",
+        component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayerView.vue"),
+        props: true,
+      },
     ],
   },
   {
