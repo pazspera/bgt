@@ -5,12 +5,16 @@ export const usePlayerStore = defineStore("playerStore", {
     // array of objects for the players
     players: [],
     name: "Bruce",
+    player: {},
   }),
   getters: {
     // can't use "this" inside the arrow function
     // we need to pass the state as an argument
     totalCount: (state) => {
       return state.players.length;
+    },
+    playerLoaded: (state) => {
+      return "name" in state.player;
     },
   },
   actions: {
@@ -23,10 +27,8 @@ export const usePlayerStore = defineStore("playerStore", {
     async getPlayer(id) {
       const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id);
       const data = await res.json();
-      console.log("in getplayer");
       console.log(data);
-
-      return data;
+      this.player = data;
     },
     checkIfPlayerAlreadyExists(name) {
       let result = this.players.filter((player) => {

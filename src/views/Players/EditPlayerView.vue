@@ -2,10 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-        <form>
+        <form v-if="playerStore.playerLoaded">
           <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="newPlayerName" class="form-control" required />
+            <p>name: {{ name }}</p>
+            <p>does the player have a name: {{ playerStore.playerLoaded }}</p>
           </div>
           <button type="submit" class="btn btn__primary">Editar jugador</button>
         </form>
@@ -20,7 +22,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, watchEffect } from "vue";
 import { usePlayerStore } from "@/stores/PlayerStore";
 export default {
   name: "EditPlayerView",
@@ -31,16 +33,24 @@ export default {
   setup(props) {
     const playerStore = usePlayerStore();
     const newPlayerName = ref("");
-    let currentPlayerData = ref("");
-    currentPlayerData = playerStore.getPlayer(props.id);
+    const currentPlayerData = ref("");
 
-    onMounted(() => {
-      console.log("When is onMounted running?");
-      newPlayerName.value = currentPlayerData.value.name;
+    console.log(props.id);
+
+    const name = ref("");
+
+    watchEffect(() => {
+      const player = playerStore.getPlayer(props.id);
+      if (player) {
+        currentPlayerData.value = player.name;
+      }
     });
-    console.log("saaaaaaaa");
 
-    return { newPlayerName, playerStore };
+    watchEffect(() => {
+      console.log(currentPlayerData.value);
+    });
+
+    return { newPlayerName, playerStore, name };
   },
 };
 </script>
