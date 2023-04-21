@@ -10,7 +10,7 @@
     },
     {
       "id": 3,
-      "name": "Bruce"
+      "name": "Bruce Wayne"
     },
     {
       "id": 4,
@@ -29,20 +29,16 @@
       "id": 12
     },
     {
-      "name": "Paz",
+      "name": "Pax",
       "id": 14
     },
     {
-      "name": "Jim",
+      "name": "Jim Halpert",
       "id": 18
     },
     {
       "name": "Pam",
       "id": 28
-    },
-    {
-      "name": "Baron",
-      "id": 29
     },
     {
       "name": "Goku",

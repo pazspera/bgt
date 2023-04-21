@@ -6,15 +6,13 @@
           <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="playerStore.player.name" class="form-control" required />
-            <p>name: {{ playerStore.player.name }}</p>
-            <p>does the player have a name: {{ playerStore.playerLoaded }}</p>
           </div>
           <button type="submit" class="btn btn__primary">Editar jugador</button>
         </form>
       </div>
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-4">
         <div v-if="areThereErrors" class="alert alert-warning" role="alert">
-          <p class="mb-0">_Hello</p>
+          <p class="mb-0">{{ error }}</p>
         </div>
       </div>
     </div>
@@ -24,6 +22,8 @@
 <script>
 import { ref, onMounted } from "vue";
 import { usePlayerStore } from "@/stores/PlayerStore";
+import { useRoute, useRouter } from "vue-router";
+
 export default {
   name: "EditPlayerView",
   mounted() {
@@ -32,9 +32,11 @@ export default {
   props: ["id"],
   setup(props) {
     const playerStore = usePlayerStore();
+    const router = useRouter();
+    const route = useRoute();
     const newPlayerName = ref("");
-    let error = ref("go");
-    let areThereErrors = false;
+    let error = ref("");
+    let areThereErrors = ref(false);
 
     onMounted(async () => {
       await playerStore.getPlayer(props.id);
@@ -45,7 +47,6 @@ export default {
     // we need it and refactor later
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
-      console.log("array of words: ", arrayOfWords);
 
       let capitalizedString;
 
@@ -56,7 +57,6 @@ export default {
       };
 
       capitalizedString = arrayOfWords.map(capitalizeWord).join(" ");
-      console.log("capitalizedString ", capitalizedString);
 
       return capitalizedString;
     };
@@ -70,29 +70,22 @@ export default {
       let newName = capitalizeString(playerStore.player.name);
 
       if (playerStore.checkIfPlayerAlreadyExists(newName)) {
-        console.log(`The player ${newName} already exists`);
-        error.value = `Ya existe une jugador con el nombre "${newName}". ¡Elige otro nombre!`;
+        // When the function starts, putting this value in false
+        // means the error message dissappears if the user
+        // had already entered a name that was in the PlayerStore
+        areThereErrors.value = false;
+        error.value = `Ya existe unx jugador con el nombre "${newName}". ¡Elige otro nombre!`;
 
-        // LOOK INTO HOW TO UPDATE A BOOLEAN VALUE
-        // WITH THE COMPOSITION API
         areThereErrors.value = true;
       } else {
-        console.log(`The player ${newName} doesn't exist`);
-      }
+        areThereErrors.value = false;
+        playerStore.updatePlayer(playerStore.player, newName);
 
-      console.log(newName);
+        router.push({ name: "Players" });
+      }
     };
 
-    /* const testCapitalize = () => {
-
-      let newName = playerStore.capitalizeName(playerStore.name);
-      // capitalizeString(playerStore.name);
-      console.log("newName ", newName)
-
-
-    }; */
-
-    return { newPlayerName, playerStore, name, capitalizeString, editPlayer, areThereErrors };
+    return { newPlayerName, playerStore, name, capitalizeString, editPlayer, areThereErrors, error, router, route };
   },
 };
 </script>

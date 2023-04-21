@@ -68,7 +68,7 @@ export default {
       // already exists (returns true if it exists)
       if (playerStore.checkIfPlayerAlreadyExists(newPlayerName.value)) {
         // player already exists
-        error.value = `Ya existe une jugador con el nombre "${newPlayerName.value}". ¡Elige otro nombre!`;
+        error.value = `Ya existe unx jugador con el nombre "${newPlayerName.value}". ¡Elige otro nombre!`;
         newPlayerName.value = "";
       } else {
         playerStore.addPlayer({

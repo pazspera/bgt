@@ -68,12 +68,12 @@ export const usePlayerStore = defineStore("playerStore", {
         console.log(res.error);
       }
     },
-    async updatePlayer(player) {
+    async updatePlayer(player, newName) {
       const res = await fetch(process.env.VUE_APP_PLAYERS_URL + player.id, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: player.name,
+          name: newName,
         }),
       });
 
