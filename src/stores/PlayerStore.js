@@ -4,7 +4,7 @@ export const usePlayerStore = defineStore("playerStore", {
   state: () => ({
     // array of objects for the players
     players: [],
-    name: "Bruce",
+    name: "bruce",
     player: {},
   }),
   getters: {
@@ -27,7 +27,6 @@ export const usePlayerStore = defineStore("playerStore", {
     async getPlayer(id) {
       const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id);
       const data = await res.json();
-      console.log(data);
       this.player = data;
     },
     checkIfPlayerAlreadyExists(name) {
@@ -68,6 +67,33 @@ export const usePlayerStore = defineStore("playerStore", {
       if (res.error) {
         console.log(res.error);
       }
+    },
+    async updatePlayer(player) {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + player.id, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: player.name,
+        }),
+      });
+
+      if (res.error) {
+        console.log(res.error);
+      }
+    },
+    capitalizeName: (string) => {
+      let arrayOfWords = string.split(/[\s,\t,\n]+/);
+      let capitalizedString;
+
+      let capitalizeWord = (string) => {
+        let firstLetter = string[0].toUpperCase();
+        let rest = string.slice(1).toLowerCase();
+        return firstLetter + rest;
+      };
+
+      capitalizedString = arrayOfWords.map(capitalizeWord).join(" ");
+
+      return capitalizedString;
     },
   },
 });
