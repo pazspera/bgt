@@ -29,7 +29,7 @@ export default {
   mounted() {
     document.title = "Editar Jugador - Board Game Tracker";
   },
-  props: ["id"],
+  props: ["Id"],
   setup(props) {
     const playerStore = usePlayerStore();
     const router = useRouter();
@@ -67,7 +67,7 @@ export default {
       //    If it exists, show an error
       //    If it doesn't exist, send the patch request and change route to player list
 
-      let newName = capitalizeString(playerStore.player.name);
+      let newName = capitalizeString(playerStore.player.Name);
 
       if (playerStore.checkIfPlayerAlreadyExists(newName)) {
         // When the function starts, putting this value in false

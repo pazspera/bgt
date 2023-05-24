@@ -32,7 +32,11 @@ export const usePlayerStore = defineStore("playerStore", {
       this.players = data;
     },
     async getPlayer(id) {
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id);
+      const uri = process.env.VUE_APP_PLAYERS_URL + id;
+      const res = await fetch(uri, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await res.json();
       this.player = data;
     },
@@ -76,7 +80,7 @@ export const usePlayerStore = defineStore("playerStore", {
       }
     },
     async updatePlayer(player, newName) {
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + player.id, {
+      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + player.Id, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

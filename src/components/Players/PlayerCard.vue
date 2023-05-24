@@ -21,6 +21,8 @@ export default {
   setup() {
     const playerStore = usePlayerStore();
 
+    console.log(playerStore.players);
+
     return { playerStore };
   },
 };
