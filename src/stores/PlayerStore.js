@@ -20,7 +20,13 @@ export const usePlayerStore = defineStore("playerStore", {
   actions: {
     async getPlayers() {
       const uri = process.env.VUE_APP_BGT_BASE_URL + "/player/all";
-      const res = await fetch(uri);
+      /* const res = await fetch(uri);
+      const data = await res.json(); */
+
+      const res = await fetch(uri, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await res.json();
 
       this.players = data;

@@ -1,7 +1,7 @@
 <template>
   <!-- Players list -->
   <div v-if="playerStore.totalCount" class="row row-cols-1 row-cols-md-2 g-3">
-    <div v-for="player in playerStore.players" :key="player.id">
+    <div v-for="player in playerStore.players" :key="player.Id">
       <PlayerCard :player="player" />
     </div>
   </div>

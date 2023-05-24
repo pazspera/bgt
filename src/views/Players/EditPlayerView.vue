@@ -5,7 +5,7 @@
         <form @submit.prevent="editPlayer">
           <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" v-model.trim="playerStore.player.name" class="form-control" required />
+            <input type="text" v-model.trim="playerStore.player.Name" class="form-control" required />
           </div>
           <button type="submit" class="btn btn__primary">Editar jugador</button>
         </form>
