@@ -32,7 +32,7 @@ export const usePlayerStore = defineStore("playerStore", {
       this.players = data;
     },
     async getPlayer(id) {
-      const uri = process.env.VUE_APP_PLAYERS_URL + id;
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/player/" + id;
       const res = await fetch(uri, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -55,8 +55,9 @@ export const usePlayerStore = defineStore("playerStore", {
       // when I edit and check if the new name is in players
 
       this.players.push(player);
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/player/create";
 
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL, {
+      const res = await fetch(uri, {
         method: "POST",
         body: JSON.stringify(player),
         headers: { "Content-Type": "application/json" },
@@ -71,8 +72,11 @@ export const usePlayerStore = defineStore("playerStore", {
         return p.id !== id;
       });
 
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + id, {
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/player/" + id;
+
+      const res = await fetch(uri, {
         method: "DELETE",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (res.error) {
