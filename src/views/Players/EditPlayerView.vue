@@ -39,7 +39,7 @@ export default {
     let areThereErrors = ref(false);
 
     onMounted(async () => {
-      await playerStore.getPlayer(props.Id);
+      await playerStore.getPlayer(props.id);
     });
 
     // I have this function on the PlayerStore but

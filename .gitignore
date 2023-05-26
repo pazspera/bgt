@@ -1,8 +1,5 @@
 .DS_Store
 node_modules
-BGT.crt
-ca.key
-
 
 # local env files
 .env.local
