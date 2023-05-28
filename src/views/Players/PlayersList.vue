@@ -5,6 +5,7 @@
       <PlayerCard :player="player" />
     </div>
   </div>
+  <p>playerStore.totalCount: {{ playerStore.totalCount }}</p>
 
   <!-- Loading message -->
   <div v-if="!playerStore.totalCount" class="row">
@@ -16,8 +17,10 @@
 
 <script>
 import { usePlayerStore } from "@/stores/PlayerStore";
+/* import { storeToRefs } from "pinia"; */
 import PlayerCard from "@/components/Players/PlayerCard.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import { ref, watch } from "vue";
 
 export default {
   name: "PlayersList",
@@ -29,7 +32,20 @@ export default {
     const playerStore = usePlayerStore();
 
     // fetch players
+    
     playerStore.getPlayers();
+
+    const currentPlayers = ref(playerStore.totalCount);
+    console.log(currentPlayers.value);
+
+    playerStore.$subscribe((mutation, state) => {
+      console.log("A change happened");
+      console.log(mutation, state);
+    });
+
+    watch(playerStore.totalCount, () => {
+      console.log("the amount of players changed");
+    });
 
     return { playerStore };
   },
