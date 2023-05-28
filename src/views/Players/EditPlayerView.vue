@@ -29,7 +29,11 @@ export default {
   mounted() {
     document.title = "Editar Jugador - Board Game Tracker";
   },
-  props: ["Id"],
+  props: {
+    id: {
+      type: String,
+    },
+  },
   setup(props) {
     const playerStore = usePlayerStore();
     const router = useRouter();
@@ -37,9 +41,14 @@ export default {
     const newPlayerName = ref("");
     let error = ref("");
     let areThereErrors = ref(false);
+    /* const playerId = ref(props.Id);
+    console.log("props", props.value);
+
+    console.log(playerId); */
 
     onMounted(async () => {
       await playerStore.getPlayer(props.id);
+      console.log(route.query.value);
     });
 
     // I have this function on the PlayerStore but

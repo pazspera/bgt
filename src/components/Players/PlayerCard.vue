@@ -1,12 +1,7 @@
 <template>
   <div class="card player-card p-2">
-    <!-- <div class="card-body d-flex justify-content-between align-items-center"> -->
-    <div class="card-body">
+    <div class="card-body d-flex justify-content-between align-items-center">
       <p class="m-0 player-name">{{ player.Name }}</p>
-      <p>params id: {{ id }}</p>
-      <p>params Id: {{ Id }}</p>
-      <p>player.id: {{ player.id }}</p>
-      <p>player.Id: {{ player.Id }}</p>
       <div class="icons">
         <router-link :to="{ name: 'EditPlayer', params: { id: player.Id } }">
           <span class="material-icons"> edit </span>
