@@ -26,13 +26,6 @@ import { useRoute, useRouter } from "vue-router";
 
 export default {
   name: "AddPlayerView",
-  /* data() {
-    return {
-      newPlayerName: "",
-      players: [],
-      error: "",
-    };
-  }, */
   mounted() {
     document.title = "Agregar Jugador - Board Game Tracker";
   },
@@ -42,6 +35,12 @@ export default {
     const router = useRouter();
     const route = useRoute();
     let error = ref("");
+    let areThereErrors = ref(false);
+    let currentPlayers = ref();
+
+    // this is coming back undefined and I don't understand why
+    currentPlayers = playerStore.players;
+    console.log("currentPlayers:" + currentPlayers.value);
 
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
@@ -61,23 +60,29 @@ export default {
     const handleSubmit = () => {
       // capitalize all names to make sure there
       // are no duplicates
-
       let capitalizedName = capitalizeString(newPlayerName.value);
+      console.log(capitalizedName);
+
+      /* console.log("check", playerStore.checkIfPlayerAlreadyExists(newPlayerName.value));
+      console.log(capitalizedName); */
 
       // also use checkIfPlayerAlreadyExists() to see if the player name
       // already exists (returns true if it exists)
-      if (playerStore.checkIfPlayerAlreadyExists(newPlayerName.value)) {
+
+      if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
         // player already exists
-        error.value = `Ya existe unx jugador con el nombre "${newPlayerName.value}". ¡Elige otro nombre!`;
+        areThereErrors.value = false;
+        error.value = `Ya existe unx jugador con el nombre "${capitalizedName}". ¡Elige otro nombre!`;
+        areThereErrors.value = true;
         newPlayerName.value = "";
       } else {
-        playerStore.addPlayer({
+        /* playerStore.addPlayer({
           name: capitalizedName,
-        });
+        }); */
 
         playerStore.getPlayers();
 
-        router.push({ name: "Players" });
+        /* router.push({ name: "Players" }); */
       }
     };
 
