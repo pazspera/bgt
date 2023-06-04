@@ -90,6 +90,11 @@ export default {
         areThereErrors.value = false;
         playerStore.updatePlayer(playerStore.player, newName);
 
+        // This tries to update all the players before
+        // changing view, it doesn't change the player list after
+        // the update on the player
+        playerStore.getPlayers();
+
         router.push({ name: "Players" });
       }
     };

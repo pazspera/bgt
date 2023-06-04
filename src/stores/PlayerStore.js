@@ -84,10 +84,11 @@ export const usePlayerStore = defineStore("playerStore", {
       }
     },
     async updatePlayer(player, newName) {
-      const res = await fetch(process.env.VUE_APP_PLAYERS_URL + player.Id, {
-        method: "PATCH",
+      const res = await fetch(process.env.VUE_APP_BGT_BASE_URL + "/player/update/" + player.Id, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          id: player.Id,
           name: newName,
         }),
       });
@@ -95,6 +96,8 @@ export const usePlayerStore = defineStore("playerStore", {
       if (res.error) {
         console.log(res.error);
       }
+
+      this.getPlayers();
     },
     capitalizeName: (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);

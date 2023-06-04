@@ -75,6 +75,8 @@ export default {
           name: capitalizedName,
         });
 
+        playerStore.getPlayers();
+
         router.push({ name: "Players" });
       }
     };
