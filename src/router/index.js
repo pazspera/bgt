@@ -16,7 +16,7 @@ const routes = [
       {
         path: "/agregar-jugador",
         name: "AddPlayer",
-        component: () => import(/* webpackChunkName: "AddPlayer"*/ "@/views/Players/AddPlayerView.vue"),
+        component: () => import(/* webpackChunkName: "AddPlayer"*/ "@/views/Players/AddPlayer.vue"),
       },
       {
         path: "",
@@ -26,7 +26,7 @@ const routes = [
       {
         path: "/editar-jugador/:id",
         name: "EditPlayer",
-        component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayerView.vue"),
+        component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayer.vue"),
         props: true,
       },
     ],

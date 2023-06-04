@@ -35,6 +35,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           playerStore.deletePlayer(id);
+          playerStore.getPlayers();
           Swal.fire("¡Éxito!", name + " fue eliminado", "success");
         }
       });
