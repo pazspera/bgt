@@ -41,26 +41,6 @@ export const usePlayerStore = defineStore("playerStore", {
       this.player = data;
     },
     async checkIfPlayerAlreadyExists(name) {
-      // this wasn't working cause I was fetching for this.players
-      // and this.players is empty by default
-      // I tried to fetch the updated players with async/await
-      // but it also doesn't work
-
-      /* console.log("players array", this.players);
-      console.log("name to check: " + name);
-
-      let currentPlayers = await this.getPlayers();
-      console.log("currentPlayers", currentPlayers);
-
-      let filteredArray = this.players.filter((player) => {
-        if (player.name === name) {
-          console.log("the name " + name + " is in the array");
-        } else {
-          console.log("the name " + name + " is NOT in the array");
-        }
-      });
-      console.log(filteredArray);
- */
       this.players.filter((player) => {
         // if it matches, it's already in players
         return player.name === name;

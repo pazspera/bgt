@@ -61,10 +61,6 @@ export default {
       // capitalize all names to make sure there
       // are no duplicates
       let capitalizedName = capitalizeString(newPlayerName.value);
-      console.log(capitalizedName);
-
-      /* console.log("check", playerStore.checkIfPlayerAlreadyExists(newPlayerName.value));
-      console.log(capitalizedName); */
 
       // also use checkIfPlayerAlreadyExists() to see if the player name
       // already exists (returns true if it exists)
@@ -76,13 +72,13 @@ export default {
         areThereErrors.value = true;
         newPlayerName.value = "";
       } else {
-        /* playerStore.addPlayer({
+        playerStore.addPlayer({
           name: capitalizedName,
-        }); */
+        });
 
         playerStore.getPlayers();
 
-        /* router.push({ name: "Players" }); */
+        router.push({ name: "Players" });
       }
     };
 
