@@ -40,20 +40,21 @@ export const usePlayerStore = defineStore("playerStore", {
       const data = await res.json();
       this.player = data;
     },
-    async checkIfPlayerAlreadyExists(name) {
-      this.players.filter((player) => {
+    checkIfPlayerAlreadyExists(name) {
+      /* this.players.filter((player) => {
         // if it matches, it's already in players
-        return player.name === name;
-      });
+         return player.Name === name;
+      }); */
       // if it returns true, the player name
       // is already in players[]
       // return result.length > 0;
       this.players.find((player) => {
-        console.log("player", player);
-        if (player.name === name) {
-          return console.log("There already is a player named " + name);
+        // return player.Name === name ? true : false;
+
+        if (player.Name === name) {
+          return console.log("player", player, "player.name", player.Name, "name", name, "result", player.Name === name);
         } else {
-          return console.log("There is no player named " + name);
+          return console.log("player", player, "player.name", player.Name, "name", name, player.Name === name);
         }
       });
     },

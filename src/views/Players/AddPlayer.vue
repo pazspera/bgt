@@ -35,12 +35,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     let error = ref("");
-    let areThereErrors = ref(false);
-    let currentPlayers = ref();
-
-    // this is coming back undefined and I don't understand why
-    currentPlayers = playerStore.players;
-    console.log("currentPlayers:" + currentPlayers.value);
+    // let areThereErrors = ref(false);
 
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
@@ -61,17 +56,22 @@ export default {
       // capitalize all names to make sure there
       // are no duplicates
       let capitalizedName = capitalizeString(newPlayerName.value);
+      console.log("capitalizedName", capitalizedName);
 
       // also use checkIfPlayerAlreadyExists() to see if the player name
       // already exists (returns true if it exists)
 
-      if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
+      console.log(playerStore.checkIfPlayerAlreadyExists(capitalizedName));
+
+      /* if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
         // player already exists
-        areThereErrors.value = false;
+        // areThereErrors.value = false;
         error.value = `Ya existe unx jugador con el nombre "${capitalizedName}". ¡Elige otro nombre!`;
-        areThereErrors.value = true;
+        console.log("player already exists");
+        // areThereErrors.value = true;
         newPlayerName.value = "";
       } else {
+        console.log("player doesn't exist");
         playerStore.addPlayer({
           name: capitalizedName,
         });
@@ -79,7 +79,7 @@ export default {
         playerStore.getPlayers();
 
         router.push({ name: "Players" });
-      }
+      } */
     };
 
     return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route, error };
