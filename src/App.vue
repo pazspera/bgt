@@ -1,8 +1,13 @@
 <template>
-  <NavBar />
-  <router-view />
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <v-icon icon="mdi:mdi-minus" />
+  <v-app>
+    <!-- <v-app-bar>
+      <v-app-bar-title>Hello</v-app-bar-title>
+    </v-app-bar> -->
+    <NavBar />
+    <router-view />
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <v-icon icon="mdi:mdi-minus" />
+  </v-app>
 </template>
 
 <script>
