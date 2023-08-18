@@ -1,6 +1,8 @@
 <template>
   <NavBar />
   <router-view />
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <v-icon icon="mdi:mdi-minus" />
 </template>
 
 <script>
@@ -18,5 +20,4 @@ export default {
   text-align: center;
   background-color: $gray-light;
 }
-
 </style>
