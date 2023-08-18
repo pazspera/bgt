@@ -11,7 +11,7 @@ export default {
   components: { HeroSection },
   data() {
     return {
-      heroTitle: "Juegos",
+      heroTitle: "Ludoteca",
       bgClass: "boardGamesBg",
     };
   },

@@ -3,6 +3,9 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
@@ -11,6 +14,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 
 let app = createApp(App);
 
+app.use(Vuetify);
 app.use(router);
 app.use(createPinia());
 app.use(VueSweetalert2);
