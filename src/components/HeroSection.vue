@@ -32,7 +32,7 @@ export default {
 @import "@/assets/scss/main.scss";
 /*  Hero    */
 .hero {
-  height: 65vh;
+  height: 45vh;
   padding: 1em 0;
   display: flex;
   background-position: center;
