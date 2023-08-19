@@ -20,6 +20,24 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import VueSweetalert2 from "vue-sweetalert2";
 /* import "sweetalert2/dist/css/sweetalert2.min.css"; */
 
+const customTheme = {
+  dark: false,
+  colors: {
+    background: "#E8EDEB",
+    surface: "#E8EDEB",
+    primary: "#9A67BD",
+    "primary-darken-1": "#633880",
+    secondary: "#8FA79B",
+    "secondary-darken-1": "#292929",
+    "neutral-800": "#292929",
+    darkBG: "#6E3E8E",
+    error: "#DD1C1A",
+    info: "#FFD23F",
+    success: "#43AA8B",
+    warning: "#FFD23F",
+  },
+};
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -32,7 +50,10 @@ const vuetify = createVuetify({
     },
   },
   theme: {
-    defaultTheme: "dark",
+    defaultTheme: "customTheme",
+    themes: {
+      customTheme,
+    },
   },
 });
 
