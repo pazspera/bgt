@@ -26,6 +26,7 @@ const customTheme = {
     background: "#E8EDEB",
     surface: "#E8EDEB",
     primary: "#9A67BD",
+    "primary-300": "#C7AADA",
     "primary-darken-1": "#633880",
     secondary: "#8FA79B",
     "secondary-darken-1": "#292929",

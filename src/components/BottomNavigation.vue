@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation class="bg-neutral-800 bottom-nav">
+  <v-bottom-navigation class="bg-neutral-800 bottom-nav" color="primary-300">
     <router-link class="nav-link" :to="{ name: 'BoardGames' }">
       <v-btn value="ludoteca">
         <i class="fa-solid fa-dice bottom-nav__icon"></i>
