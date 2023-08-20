@@ -1,14 +1,7 @@
 <template>
   <v-app>
-    <v-toolbar class="bg-neutral-800" :elevation="0">
-      <v-container>
-        <v-row>
-          <v-app-bar-nav-icon><img src="@/assets/img/logo_dark.png" /></v-app-bar-nav-icon>
-          <v-toolbar-title>Hello</v-toolbar-title>
-        </v-row>
-      </v-container>
-    </v-toolbar>
     <!-- <NavBar /> -->
+    <ToolBar />
     <v-main>
       <router-view />
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -20,6 +13,7 @@
 
 <script>
 import BottomNavigation from "./components/BottomNavigation.vue";
+import ToolBar from "./components/ToolBar.vue";
 /* import NavBar from "@/components/NavBar.vue"; */
 
 export default {
@@ -27,6 +21,7 @@ export default {
   components: {
     /* NavBar */
     BottomNavigation,
+    ToolBar,
   },
 };
 </script>
