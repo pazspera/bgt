@@ -33,7 +33,7 @@ const routes = [
     ],
   },
   {
-    path: "/juegos",
+    path: "/ludoteca",
     name: "BoardGames",
     component: () => import(/*webpackChunkName: "BoardGames"*/ "@/views/BoardGames/BoardGamesView.vue"),
   },
