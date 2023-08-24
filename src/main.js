@@ -32,6 +32,7 @@ const customTheme = {
     "secondary-darken-1": "#292929",
     "neutral-800": "#292929",
     darkBG: "#6E3E8E",
+    white: "#ffffff",
     error: "#DD1C1A",
     info: "#FFD23F",
     success: "#43AA8B",
