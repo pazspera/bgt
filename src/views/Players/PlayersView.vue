@@ -16,16 +16,16 @@
     <!-- Acá va la prueba con el nuevo router-link -->
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2 col-xxl-6 offset-xxl-3 mb-5">
-          <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
-          <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
-        <nav class="nav nav-pills nav-justified">
-        </nav>
+        <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
+        <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
+        <nav class="nav nav-pills nav-justified"></nav>
       </div>
       <!-- <div class="col-12 mb-3">
         <router-link class="btn btn__primary" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
       </div> -->
 
       <div class="col-12">
+        <AddPlayer />
         <router-view />
       </div>
     </div>
@@ -36,10 +36,11 @@
 /* Components */
 /* import PlayerList from "@/views/Players/PlayersList.vue"; */
 import HeroSection from "@/components/HeroSection.vue";
+import AddPlayer from "@/components/Players/AddPlayer.vue";
 
 export default {
   name: "PlayersView",
-  components: { /* PlayerList, */ HeroSection },
+  components: { /* PlayerList, */ HeroSection, AddPlayer },
   data() {
     return {
       heroTitle: "Jugadores",
