@@ -4,10 +4,10 @@
     <div class="row">
       <v-tabs v-model="tab" color="primary" align-tabs="center" class="mb-4" centered stacked>
         <v-tab :value="1" class="player-tab">
-          <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
+          <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
         </v-tab>
         <v-tab :value="2" class="player-tab">
-          <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
+          <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
         </v-tab>
       </v-tabs>
       <v-window v-model="tab">
@@ -72,6 +72,12 @@ export default {
 .player-tab {
   box-sizing: border-box;
 }
+
+/* Override Vuetify */
+.v-btn {
+  padding: 0;
+}
+
 @media (max-width: 500px) {
   .player-tab,
   .router-link-active {
