@@ -1,6 +1,6 @@
 <template>
   <v-card class="d-flex px-3 py-2" color="white">
-    <v-card-text class="d-flex justify-start">{{ player.Name }}</v-card-text>
+    <v-card-text class="d-flex justify-start player-name">{{ player.Name }}</v-card-text>
     <v-card-actions class="d-flex align-center">
       <router-link :to="{ name: 'EditPlayer', params: { id: player.Id } }">
         <span class="material-icons"> edit </span>

@@ -1,33 +1,30 @@
 <template>
   <HeroSection :title="heroTitle" :bg-class="bgClass" />
   <div class="container my-5">
-    <!-- Nav tabs -->
-    <!-- <div class="row">
-      <div class="col-12 col-lg-10 offset-lg-1 col-xxl-8 offset-xxl-2 mb-3">
-        <nav class="nav nav-pills nav-justified">
-          <a class="nav-link active" aria-current="page" href="#">Todes les jugadores</a>
-          <router-link class="nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevo jugador</router-link>
-        </nav>
-      </div>
-    </div>
-
-    <PlayerList /> -->
-
-    <!-- Acá va la prueba con el nuevo router-link -->
     <div class="row">
-      <div class="col-12 col-lg-8 offset-lg-2 col-xxl-6 offset-xxl-3 mb-5">
-        <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
-        <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
-        <nav class="nav nav-pills nav-justified"></nav>
-      </div>
-      <!-- <div class="col-12 mb-3">
-        <router-link class="btn btn__primary" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
-      </div> -->
+      <v-tabs v-model="tab" color="primary" align-tabs="center" class="mb-4" centered stacked>
+        <v-tab :value="1" class="player-tab">
+          <router-link class="nav-link internal-nav-link" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
+        </v-tab>
+        <v-tab :value="2" class="player-tab">
+          <router-link class="nav-link internal-nav-link" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
+        </v-tab>
+      </v-tabs>
+      <v-window v-model="tab">
+        <v-window-item v-for="n in 3" :key="n" :value="n">
+          <v-container fluid>
+            <v-row>
+              <v-col>
+                <router-view />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-window-item>
+      </v-window>
 
-      <div class="col-12">
-        <AddPlayer />
+      <!-- <div class="col-12">
         <router-view />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -36,15 +33,15 @@
 /* Components */
 /* import PlayerList from "@/views/Players/PlayersList.vue"; */
 import HeroSection from "@/components/HeroSection.vue";
-import AddPlayer from "@/components/Players/AddPlayer.vue";
 
 export default {
   name: "PlayersView",
-  components: { /* PlayerList, */ HeroSection, AddPlayer },
+  components: { /* PlayerList, */ HeroSection },
   data() {
     return {
       heroTitle: "Jugadores",
       bgClass: "playersBg",
+      tab: null,
     };
   },
   mounted() {
@@ -65,11 +62,16 @@ export default {
 }
 
 .router-link-exact-active {
-  background-color: $primary-light;
-  color: $white !important;
+  color: $primary-light !important;
 }
 
 .nav-pills .nav-link {
   border-radius: 0;
+}
+
+@media (max-width: 576px) {
+  .player-tab {
+    max-width: 140px;
+  }
 }
 </style>
