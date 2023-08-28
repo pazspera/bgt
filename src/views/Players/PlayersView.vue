@@ -7,7 +7,7 @@
           <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
         </v-tab>
         <v-tab :value="2" class="player-tab">
-          <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'AddPlayer' }">Agregar nuevx jugador</router-link>
+          <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'AddPlayer' }">Agregar nuevx jugadorx</router-link>
         </v-tab>
       </v-tabs>
       <v-window v-model="tab">
