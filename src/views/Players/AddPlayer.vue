@@ -35,7 +35,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     let error = ref("");
-    // let areThereErrors = ref(false);
+    let areThereErrors = ref(false);
 
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
@@ -61,8 +61,34 @@ export default {
       // also use checkIfPlayerAlreadyExists() to see if the player name
       // already exists (returns true if it exists)
 
-      console.log(playerStore.checkIfPlayerAlreadyExists(capitalizedName));
+      if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
+        console.log("it is true, so the capitalizedName is in playerstore");
+      } else {
+        console.log("capitalized name is not on the playerStore");
+      }
 
+      if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
+        // When true, capitalizedName is already in players
+
+        // First put errors to false in case the user is
+        // double checking a name that got true before
+        areThereErrors.value = false;
+        error.value = `Ya existe unx jugadorx con el nombre "${capitalizedName}". ¡Elige otro nombre!`;
+        areThereErrors.value = true;
+
+        // Delete newPlayerName so the user can add new name
+        newPlayerName.value = "";
+      } else {
+        // When false, capitalizedName can be added to players
+        playerStore.addPlayer({
+          name: capitalizedName,
+        });
+
+        playerStore.getPlayers();
+        router.push({ name: "PlayersList" });
+      }
+
+      // ORIGINAL CODE
       /* if (playerStore.checkIfPlayerAlreadyExists(capitalizedName)) {
         // player already exists
         // areThereErrors.value = false;
@@ -78,8 +104,8 @@ export default {
 
         playerStore.getPlayers();
 
-        router.push({ name: "Players" });
-      } */
+        // router.push({ name: "Players" });
+      }  */
     };
 
     return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route, error };

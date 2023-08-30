@@ -41,14 +41,30 @@ export const usePlayerStore = defineStore("playerStore", {
       this.player = data;
     },
     checkIfPlayerAlreadyExists(name) {
-      /* this.players.filter((player) => {
-        // if it matches, it's already in players
-         return player.Name === name;
-      }); */
+      // It loops through the players, if the new name
+      // matches a player already recorded, it returns true
+
+      // I'm creating a new array where if the name is already
+      // in players, that player is added on checkArray
+
+      // Then I see checkArray's lenght, if it's > 0 there name
+      // is already on players so its's true that the player
+      // already exists
+
+      let checkArray = [];
+
+      this.players.filter((player) => {
+        if (player.Name === name) {
+          checkArray.push(player);
+        }
+      });
+
+      return checkArray.length > 0;
+
       // if it returns true, the player name
       // is already in players[]
       // return result.length > 0;
-      this.players.find((player) => {
+      /* this.players.find((player) => {
         // return player.Name === name ? true : false;
 
         if (player.Name === name) {
@@ -56,7 +72,7 @@ export const usePlayerStore = defineStore("playerStore", {
         } else {
           return console.log("player", player, "player.name", player.Name, "name", name, player.Name === name);
         }
-      });
+      }); */
     },
     async addPlayer(player) {
       // before adding the player, check if it's already on players
