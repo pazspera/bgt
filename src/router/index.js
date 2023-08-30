@@ -22,7 +22,7 @@ const routes = [
       {
         path: "",
         name: "PlayersList",
-        component: () => import(/*webpackChunkName: "PlayersList"*/ "@/views/Players/PlayersList.vue"),
+        component: () => import("@/views/Players/PlayersList.vue"),
       },
       {
         path: "/editar-jugador/:id",

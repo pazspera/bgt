@@ -79,6 +79,7 @@ export default {
         // Delete newPlayerName so the user can add new name
         newPlayerName.value = "";
       } else {
+        areThereErrors.value = false;
         // When false, capitalizedName can be added to players
         playerStore.addPlayer({
           name: capitalizedName,
