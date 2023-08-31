@@ -15,11 +15,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "Players"*/ "@/views/Players/PlayersView.vue"),
     children: [
       {
-        path: "/agregar-jugador",
-        name: "AddPlayer",
-        component: () => import(/* webpackChunkName: "AddPlayer"*/ "@/views/Players/AddPlayer.vue"),
-      },
-      {
         path: "",
         name: "PlayersList",
         component: () => import("@/views/Players/PlayersList.vue"),
@@ -37,6 +32,11 @@ const routes = [
     name: "EditPlayer",
     component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayer.vue"),
     props: true,
+  },
+  {
+    path: "/agregar-jugador",
+    name: "AddPlayer",
+    component: () => import(/* webpackChunkName: "AddPlayer"*/ "@/views/Players/AddPlayer.vue"),
   },
   {
     path: "/ludoteca",

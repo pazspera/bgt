@@ -1,5 +1,6 @@
 <template>
-  <div class="container add-player">
+  <HeroSection :title="heroTitle" :bg-class="bgClass" />
+  <div class="container add-player my-4">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form @submit.prevent="handleSubmit">
@@ -7,7 +8,8 @@
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="newPlayerName" class="form-control" required />
           </div>
-          <button type="submit" class="btn btn__primary">Agregar jugador</button>
+          <v-btn type="submit" class="btn me-3" color="primary">Agregar jugador</v-btn>
+          <v-btn variant="text" @click="router.go(-1)">Cancelar</v-btn>
         </form>
       </div>
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-4">
@@ -23,12 +25,14 @@
 import { usePlayerStore } from "@/stores/PlayerStore";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import HeroSection from "@/components/HeroSection.vue";
 
 export default {
   name: "AddPlayerView",
   mounted() {
     document.title = "Agregar Jugador - Board Game Tracker";
   },
+  components: { HeroSection },
   setup() {
     const playerStore = usePlayerStore();
     const newPlayerName = ref("");
@@ -36,6 +40,9 @@ export default {
     const route = useRoute();
     let error = ref("");
     let areThereErrors = ref(false);
+
+    let heroTitle = "Agregar jugadorx";
+    let bgClass = "playersBg";
 
     const capitalizeString = (string) => {
       let arrayOfWords = string.split(/[\s,\t,\n]+/);
@@ -109,7 +116,7 @@ export default {
       }  */
     };
 
-    return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route, error };
+    return { playerStore, newPlayerName, handleSubmit, capitalizeString, router, route, error, bgClass, heroTitle };
   },
 };
 </script>

@@ -1,16 +1,17 @@
 <template>
   <HeroSection :title="heroTitle" :bg-class="bgClass" />
-  <div class="container my-5">
+
+  <v-container class="my-5">
     <div class="row">
-      <v-tabs v-model="tab" color="primary" align-tabs="center" class="mb-4" centered stacked>
+      <!-- <v-tabs v-model="tab" color="primary" align-tabs="center" class="mb-4" centered stacked>
         <v-tab :value="1" class="player-tab">
           <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'PlayersList' }"> Todxs lxs jugadores </router-link>
         </v-tab>
         <v-tab :value="2" class="player-tab">
           <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'AddPlayer' }">Agregar nuevx jugadorx</router-link>
         </v-tab>
-      </v-tabs>
-      <v-window v-model="tab">
+      </v-tabs> -->
+      <v-window>
         <v-window-item v-for="n in 3" :key="n" :value="n">
           <v-container fluid>
             <v-row>
@@ -26,22 +27,25 @@
         <router-view />
       </div> -->
     </div>
-  </div>
+  </v-container>
+  <AddButton :text="btnText" :route="btnRoute"/>
 </template>
 
 <script>
 /* Components */
 /* import PlayerList from "@/views/Players/PlayersList.vue"; */
 import HeroSection from "@/components/HeroSection.vue";
+import AddButton from "@/components/AddButton.vue";
 
 export default {
   name: "PlayersView",
-  components: { /* PlayerList, */ HeroSection },
+  components: { /* PlayerList, */ HeroSection, AddButton },
   data() {
     return {
       heroTitle: "Jugadores",
       bgClass: "playersBg",
-      tab: null,
+      btnText: "Agregar jugadorx",
+      btnRoute: "AddPlayer"
     };
   },
   mounted() {
