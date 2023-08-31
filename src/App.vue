@@ -4,8 +4,6 @@
     <ToolBar />
     <v-main>
       <router-view />
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <v-icon icon="mdi:mdi-minus" />
     </v-main>
     <BottomNavigation />
   </v-app>

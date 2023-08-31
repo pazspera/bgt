@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <HeroSection :title="heroTitle" :bg-class="bgClass" />
+  <div class="container my-4">
     <div class="row">
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
         <form @submit.prevent="editPlayer">
@@ -7,7 +8,8 @@
             <label for="name" class="form-label">Nombre</label>
             <input type="text" v-model.trim="playerStore.player.Name" class="form-control" required />
           </div>
-          <button type="submit" class="btn btn__primary">Editar jugador</button>
+          <v-btn type="submit" class="btn me-3" color="primary">Editar jugadorx</v-btn>
+          <v-btn variant="text" @click="router.go(-1)">Cancelar</v-btn>
         </form>
       </div>
       <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-4">
@@ -23,12 +25,14 @@
 import { ref, onMounted } from "vue";
 import { usePlayerStore } from "@/stores/PlayerStore";
 import { useRoute, useRouter } from "vue-router";
+import HeroSection from "@/components/HeroSection.vue";
 
 export default {
   name: "EditPlayerView",
   mounted() {
     document.title = "Editar Jugador - Board Game Tracker";
   },
+  components: { HeroSection },
   props: {
     id: {
       type: String,
@@ -41,6 +45,10 @@ export default {
     const newPlayerName = ref("");
     let error = ref("");
     let areThereErrors = ref(false);
+
+    let heroTitle = "Editar jugadorx";
+    let bgClass = "playersBg";
+
     /* const playerId = ref(props.Id);
     console.log("props", props.value);
 
@@ -99,7 +107,7 @@ export default {
       }
     };
 
-    return { newPlayerName, playerStore, name, capitalizeString, editPlayer, areThereErrors, error, router, route };
+    return { newPlayerName, playerStore, name, capitalizeString, editPlayer, areThereErrors, error, router, route, heroTitle, bgClass };
   },
 };
 </script>

@@ -24,13 +24,19 @@ const routes = [
         name: "PlayersList",
         component: () => import("@/views/Players/PlayersList.vue"),
       },
-      {
+      /* {
         path: "/editar-jugador/:id",
         name: "EditPlayer",
-        component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayer.vue"),
+        component: () => import("@/views/Players/EditPlayer.vue"),
         props: true,
-      },
+      }, */
     ],
+  },
+  {
+    path: "/editar-jugador/:id",
+    name: "EditPlayer",
+    component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayer.vue"),
+    props: true,
   },
   {
     path: "/ludoteca",
