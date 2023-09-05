@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <!-- <NavBar /> -->
-    <ToolBar />
+    <!-- <ToolBar /> -->
+    <NavBar2 />
     <v-main>
       <router-view />
     </v-main>
@@ -11,15 +12,17 @@
 
 <script>
 import BottomNavigation from "./components/BottomNavigation.vue";
-import ToolBar from "./components/ToolBar.vue";
+/* import ToolBar from "./components/ToolBar.vue"; */
 /* import NavBar from "@/components/NavBar.vue"; */
+import NavBar2 from "@/components/NavBar2.vue";
 
 export default {
   name: "App",
   components: {
-    /* NavBar */
+    /* NavBar, */
     BottomNavigation,
-    ToolBar,
+    /* ToolBar, */
+    NavBar2,
   },
 };
 </script>

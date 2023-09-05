@@ -9,7 +9,12 @@
           <v-card>
             <v-toolbar color="primary" title="¿Cómo guardar una partida?"></v-toolbar>
             <v-card-text>
-              <v-list :items="items" item-title="text" item-value="id"></v-list>
+              <ol>
+                <li class="mb-3">Busca el juego que estás jugando en la barra de búsqueda.</li>
+                <li class="mb-3">Agrega el juego a tu ludoteca.</li>
+                <li class="mb-3">Una vez que el juego esté en tu ludoteca, apretá el botón de guardar partida y seguí los pasos del formulario.</li>
+                <li class="mb-3">¡Felicitaciones! Ya guardaste tu primera partida. Ahora, ¡a seguir jugando!</li>
+              </ol>
             </v-card-text>
             <v-card-actions class="justify-end">
               <v-btn variant="text" @click="isActive.value = false">Cerrar</v-btn>
@@ -21,44 +26,9 @@
   </v-row>
 </template>
 <script>
-import { ref } from "vue";
+
 export default {
   name: "HelpIcon",
-  setup() {
-    const items = ref([
-      {
-        id: 1,
-        text: "Busca el juego que estás jugando en la barra de búsqueda.",
-        icon: "mdi-numeric-1",
-        props: {
-            prependIcon: "mdi-numeric-1"
-        }
-      },
-      {
-        id: 2,
-        text: "Agrega el juego a tu ludoteca.",
-        props: {
-            prependIcon: "mdi-numeric-2"
-        }
-      },
-      {
-        id: 3,
-        text: "Una vez que el juego esté en tu ludoteca, apretá el botón de guardar partida y seguí los pasos del formulario.",
-        props: {
-            prependIcon: "mdi-numeric-3"
-        }
-      },
-      {
-        id: 4,
-        text: "¡Felicitaciones! Ya guardaste tu primera partida. Ahora, ¡a seguir jugando!",
-        props: {
-            prependIcon: "mdi-numeric-4"
-        }
-      },
-    ]);
-
-    return { items };
-  },
 };
 </script>
 
@@ -67,7 +37,7 @@ export default {
 .help-icon {
   position: fixed;
   bottom: 70px;
-  right: 3vw;
+  right: 6vw;
 }
 
 .help-icon__text {
