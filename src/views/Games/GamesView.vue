@@ -1,10 +1,12 @@
 <template>
   <HeroSection :title="heroTitle" :bg-class="bgClass" />
   <h1>Games View</h1>
+
 </template>
 
 <script>
 import HeroSection from "@/components/HeroSection.vue";
+
 
 export default {
   name: "GamesView",
