@@ -11,7 +11,8 @@
           <router-link class="nav-link internal-nav-link pa-md-7" :to="{ name: 'AddPlayer' }">Agregar nuevx jugadorx</router-link>
         </v-tab>
       </v-tabs> -->
-      <v-window>
+
+      <!-- <v-window>
         <v-window-item v-for="n in 3" :key="n" :value="n">
           <v-container fluid>
             <v-row>
@@ -21,31 +22,32 @@
             </v-row>
           </v-container>
         </v-window-item>
-      </v-window>
+      </v-window> -->
 
-      <!-- <div class="col-12">
-        <router-view />
-      </div> -->
+      <div class="col-12">
+        <PlayerList />
+        <!-- <router-view /> -->
+      </div>
     </div>
   </v-container>
-  <AddButton :text="btnText" :route="btnRoute"/>
+  <AddButton :text="btnText" :route="btnRoute" />
 </template>
 
 <script>
 /* Components */
-/* import PlayerList from "@/views/Players/PlayersList.vue"; */
+import PlayerList from "@/views/Players/PlayersList.vue";
 import HeroSection from "@/components/HeroSection.vue";
 import AddButton from "@/components/AddButton.vue";
 
 export default {
   name: "PlayersView",
-  components: { /* PlayerList, */ HeroSection, AddButton },
+  components: { PlayerList, HeroSection, AddButton },
   data() {
     return {
       heroTitle: "Jugadores",
       bgClass: "playersBg",
       btnText: "Agregar jugadorx",
-      btnRoute: "AddPlayer"
+      btnRoute: "AddPlayer",
     };
   },
   mounted() {

@@ -87,7 +87,10 @@ export const usePlayerStore = defineStore("playerStore", {
         body: JSON.stringify(player),
         headers: { "Content-Type": "application/json" },
       });
-
+      debugger;
+      /* 
+        Buscar en la res el id en el json que pasa la api
+      */
       if (res.error) {
         console.log(res.error);
       }

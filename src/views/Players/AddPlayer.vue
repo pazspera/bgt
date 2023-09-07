@@ -93,7 +93,9 @@ export default {
         });
 
         playerStore.getPlayers();
-        router.push({ name: "PlayersList" });
+        debugger;
+        router.push({ name: "Players" });
+        playerStore.getPlayers();
       }
 
       // ORIGINAL CODE

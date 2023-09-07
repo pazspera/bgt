@@ -11,24 +11,12 @@ const routes = [
   {
     path: "/jugadores",
     name: "Players",
-    redirect: { name: "PlayersList" },
+    /* redirect: { name: "PlayersList" }, */
     component: () => import(/* webpackChunkName: "Players"*/ "@/views/Players/PlayersView.vue"),
-    children: [
-      {
-        path: "",
-        name: "PlayersList",
-        component: () => import("@/views/Players/PlayersList.vue"),
-      },
-      /* {
-        path: "/editar-jugador/:id",
-        name: "EditPlayer",
-        component: () => import("@/views/Players/EditPlayer.vue"),
-        props: true,
-      }, */
-    ],
+
   },
   {
-    path: "/editar-jugador/:id",
+    path: "/editar-jugador/:id?",
     name: "EditPlayer",
     component: () => import(/*webpackChunkName: "EditPlayer"*/ "@/views/Players/EditPlayer.vue"),
     props: true,

@@ -32,7 +32,7 @@ export default {
     const playerStore = usePlayerStore();
 
     // fetch players
-    
+
     playerStore.getPlayers();
 
     const currentPlayers = ref(playerStore.totalCount);
