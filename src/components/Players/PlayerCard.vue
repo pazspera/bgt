@@ -29,8 +29,13 @@ import Swal from "sweetalert2";
 export default {
   name: "PlayerCard",
   props: ["player"],
-  setup() {
+  setup(props, {emit}) {
     const playerStore = usePlayerStore();
+
+
+    const emitFunction = () => {
+      emit("updatePlayers");
+    };
 
     const confirmDelete = (id, name) => {
       Swal.fire({
@@ -46,6 +51,7 @@ export default {
         if (result.isConfirmed) {
           playerStore.deletePlayer(id);
           playerStore.getPlayers();
+          emitFunction();
           Swal.fire("¡Éxito!", name + " fue eliminado", "success");
         }
       });

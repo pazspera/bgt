@@ -2,7 +2,7 @@
   <!-- Players list -->
   <div v-if="playerStore.totalCount" class="row row-cols-1 row-cols-md-2 g-3">
     <div v-for="player in playerStore.players" :key="player.id">
-      <PlayerCard :player="player" />
+      <PlayerCard :player="player" @updatePlayers="updatePlayers" />
     </div>
   </div>
   <p>playerStore.totalCount: {{ playerStore.totalCount }}</p>
@@ -20,7 +20,6 @@ import { usePlayerStore } from "@/stores/PlayerStore";
 /* import { storeToRefs } from "pinia"; */
 import PlayerCard from "@/components/Players/PlayerCard.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
-import { ref, watch } from "vue";
 
 export default {
   name: "PlayersList",
@@ -35,19 +34,14 @@ export default {
 
     playerStore.getPlayers();
 
-    const currentPlayers = ref(playerStore.totalCount);
-    console.log(currentPlayers.value);
+    // Here it listens to the child component that
+    // emits the event when the users confirms the
+    // deletion of a player.
+    const updatePlayers = () => {
+      playerStore.getPlayers();
+    };
 
-    playerStore.$subscribe((mutation, state) => {
-      console.log("A change happened");
-      console.log(mutation, state);
-    });
-
-    watch(playerStore.totalCount, () => {
-      console.log("the amount of players changed");
-    });
-
-    return { playerStore };
+    return { playerStore, updatePlayers };
   },
 };
 </script>
