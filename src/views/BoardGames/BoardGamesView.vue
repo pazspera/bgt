@@ -1,16 +1,15 @@
 <template>
   <HeroSection :title="heroTitle" :bg-class="bgClass" />
-  <v-container class="height">
-    <h1>BoardGames View</h1>
+  <v-container class="height my-5">
+    <BoardGamesList />
   </v-container>
-  <BoardGamesList/>
   <HelpIcon />
 </template>
 
 <script>
 import HeroSection from "@/components/HeroSection.vue";
 import HelpIcon from "@/components/HelpIcon.vue";
-import BoardGamesList from './BoardGamesList.vue';
+import BoardGamesList from "./BoardGamesList.vue";
 
 export default {
   name: "BoardGamesView",
