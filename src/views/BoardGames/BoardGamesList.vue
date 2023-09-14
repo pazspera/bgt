@@ -4,16 +4,24 @@
       <BoardgameCard :boardGame="boardGame" />
     </div>
   </div>
+
+  <!-- Loading message -->
+  <div v-if="!boardGameStore.totalCount" class="row">
+    <div class="col">
+      <LoadingSpinner />
+    </div>
+  </div>
 </template>
 
 <script>
 import { useBoardGameStore } from "@/stores/BoardGameStore";
 import BoardgameCard from "@/components/BoardGames/BoardgameCard.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "BoardGameList",
-  components: { BoardgameCard },
- 
+  components: { BoardgameCard, LoadingSpinner },
+
   setup() {
     const boardGameStore = useBoardGameStore();
 

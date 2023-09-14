@@ -34,4 +34,9 @@ export const useBoardGameStore = defineStore("boardGameStore", {
     ],
     name: "Testing the Store",
   }),
+  getters: {
+    totalCount: (state) => {
+      return state.boardGames.length;
+    },
+  },
 });
