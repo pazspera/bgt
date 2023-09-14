@@ -104,3 +104,14 @@ h6 {
     }
   }
 }
+
+// Icons
+.material-icons {
+  cursor: pointer;
+  color: $gray-darker;
+
+  &:hover {
+    color: $gray-dark;
+    opacity: 0.6;
+  }
+}

@@ -65,15 +65,7 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/main.scss";
 
-.material-icons {
-  cursor: pointer;
-  color: $gray-darker;
 
-  &:hover {
-    color: $gray-dark;
-    opacity: 0.6;
-  }
-}
 .player-card {
   border-radius: 0;
   border: none;
