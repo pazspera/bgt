@@ -25,6 +25,8 @@ export default {
   setup() {
     const boardGameStore = useBoardGameStore();
 
+    boardGameStore.getBoardgames();
+
     return { boardGameStore };
   },
 };

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useBoardGameStore = defineStore("boardGameStore", {
   state: () => ({
-    boardGames: [
+    /* boardGames: [
       {
         id: 1,
         name: "Dominion (2008)",
@@ -31,7 +31,8 @@ export const useBoardGameStore = defineStore("boardGameStore", {
         description: "Wiz War, Wiz War, Party time, Excellent",
         image: "https://cf.geekdo-images.com/yXbWhfIuwKFJfPNg5SgPOQ__itemrep/img/LmRLwSH8LhTMqtCbvEYJ3eFCpho=/fit-in/246x300/filters:strip_icc()/pic1222733.jpg",
       },
-    ],
+    ], */
+    boardGames: [],
     name: "Testing the Store",
   }),
   getters: {
@@ -39,4 +40,18 @@ export const useBoardGameStore = defineStore("boardGameStore", {
       return state.boardGames.length;
     },
   },
+  actions: {
+   async getBoardgames() {
+    const uri = process.env.VUE_APP_BGT_BASE_URL + "/boardgame/all";
+
+    const res = await fetch(uri, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+
+    this.boardGames = data
+   } 
+  }
 });
