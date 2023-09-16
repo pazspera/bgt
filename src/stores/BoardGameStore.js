@@ -41,17 +41,33 @@ export const useBoardGameStore = defineStore("boardGameStore", {
     },
   },
   actions: {
-   async getBoardgames() {
-    const uri = process.env.VUE_APP_BGT_BASE_URL + "/boardgame/all";
+    async getBoardgames() {
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/boardgame/all";
 
-    const res = await fetch(uri, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+      const res = await fetch(uri, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    this.boardGames = data
-   } 
-  }
+      this.boardGames = data;
+    },
+    async deleteBoardgame(id) {
+      this.boardGames = this.boardGames.filter((b) => {
+        return b.id !== id;
+      });
+
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/boardgame/" + id;
+
+      const res = await fetch(uri, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.error) {
+        console.log(res.error);
+      }
+    },
+  },
 });

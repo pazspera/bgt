@@ -15,6 +15,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import { useBoardGameStore } from "@/stores/BoardGameStore";
 
 export default {
   name: "BoardgameCard",
@@ -27,11 +28,17 @@ export default {
     };
   },
 
-  setup() {
+  setup(props, { emit }) {
+    const boardgameStore = useBoardGameStore();
+
+    const updateBoardgameList = () => {
+      emit("updateBoardgames");
+    };
+
     const confirmDelete = (id, name) => {
       Swal.fire({
         title: "¿Estás segurx?",
-        text: "Esta acción no puede revertirse",
+        text: "Todas las partidas asociadas a este juego desapareceran. Esta acción no puede revertirse.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -40,10 +47,13 @@ export default {
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
+          boardgameStore.deleteBoardgame(id);
+          boardgameStore.getBoardgames();
           /* playerStore.deletePlayer(id);
           playerStore.getPlayers(); */
           /* emitFunction(); */
-          /* Swal.fire("¡Éxito!", name + " fue borrado de la ludoteca", "success"); */
+          updateBoardgameList();
+          Swal.fire("¡Éxito!", name + " fue borrado de la ludoteca", "success");
           console.log(`${id} ${name} borrado`);
         }
       });
