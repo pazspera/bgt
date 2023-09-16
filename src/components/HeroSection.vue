@@ -1,6 +1,6 @@
 <template>
   <section class="hero" :class="bgClass">
-    <div class="hero__container container">
+    <v-container class="hero__container">
       <div class="row">
         <div class="col-12 col-md-9 col-lg-7">
           <h1 class="hero__title mb-5">
@@ -8,7 +8,7 @@
           </h1>
         </div>
       </div>
-    </div>
+    </v-container>
   </section>
 </template>
 
