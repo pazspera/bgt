@@ -34,6 +34,7 @@ export const useBoardGameStore = defineStore("boardGameStore", {
     ], */
     boardGames: [],
     name: "Testing the Store",
+    boardGame: {},
   }),
   getters: {
     totalCount: (state) => {
@@ -52,6 +53,15 @@ export const useBoardGameStore = defineStore("boardGameStore", {
       const data = await res.json();
 
       this.boardGames = data;
+    },
+    async getBoardgame(id) {
+      const uri = process.env.VUE_APP_BGT_BASE_URL + "/boardgame/" + id;
+      const res = await fetch(uri, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      this.boardGame = data;
     },
     async deleteBoardgame(id) {
       this.boardGames = this.boardGames.filter((b) => {

@@ -4,10 +4,12 @@
     <p class="mb-2 boardGame-name flex-grow-1">{{ boardGame.name }}</p>
 
     <div class="d-flex align-center justify-content-around">
-      <v-btn class="btn-add align-self-end justify-self-end" color="primary">
-        <v-icon icon="mdi:mdi-plus"></v-icon>
-        <span>Agregar partida</span>
-      </v-btn>
+      <router-link :to="{ name: 'AddGame', params: { id: boardGame.id, ...boardGame } }" :id="boardGame.id">
+        <v-btn class="btn-add align-self-end justify-self-end" color="primary">
+          <v-icon icon="mdi:mdi-plus"></v-icon>
+          <span>Agregar partida</span>
+        </v-btn>
+      </router-link>
       <span @click="confirmDelete(boardGame.id, boardGame.name)" class="material-icons">delete</span>
     </div>
   </v-card>

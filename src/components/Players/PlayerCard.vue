@@ -8,18 +8,6 @@
       <span @click="confirmDelete(player.Id, player.Name)" class="material-icons mb-1"> delete </span>
     </v-card-actions>
   </v-card>
-
-  <!-- <div class="card player-card p-2">
-    <div class="card-body d-flex justify-content-between align-items-center">
-      <p class="m-0 player-name">{{ player.Name }}</p>
-      <div class="icons">
-        <router-link :to="{ name: 'EditPlayer', params: { id: player.Id } }">
-          <span class="material-icons"> edit </span>
-        </router-link>
-        <span @click="confirmDelete(player.Id, player.Name)" class="material-icons"> delete </span>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -29,9 +17,8 @@ import Swal from "sweetalert2";
 export default {
   name: "PlayerCard",
   props: ["player"],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const playerStore = usePlayerStore();
-
 
     const emitFunction = () => {
       emit("updatePlayers");
@@ -64,7 +51,6 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/main.scss";
-
 
 .player-card {
   border-radius: 0;
