@@ -4,7 +4,7 @@
     <p class="mb-2 boardGame-name flex-grow-1">{{ boardGame.name }}</p>
 
     <div class="d-flex align-center justify-content-around">
-      <router-link :to="{ name: 'AddGame', params: { id: boardGame.id, ...boardGame } }" :id="boardGame.id">
+      <router-link :to="{ name: 'AddGame' }" @click="startSaveGame">
         <v-btn class="btn-add align-self-end justify-self-end" color="primary">
           <v-icon icon="mdi:mdi-plus"></v-icon>
           <span>Agregar partida</span>
@@ -18,6 +18,7 @@
 <script>
 import Swal from "sweetalert2";
 import { useBoardGameStore } from "@/stores/BoardGameStore";
+import { useGameStore } from "@/stores/GameStore";
 
 export default {
   name: "BoardgameCard",
@@ -32,9 +33,14 @@ export default {
 
   setup(props, { emit }) {
     const boardgameStore = useBoardGameStore();
+    const gameStore = useGameStore();
 
     const updateBoardgameList = () => {
       emit("updateBoardgames");
+    };
+
+    const startSaveGame = () => {
+      gameStore.setSelectedBoardGameId(props.boardGame.id);
     };
 
     const confirmDelete = (id, name) => {
@@ -51,9 +57,6 @@ export default {
         if (result.isConfirmed) {
           boardgameStore.deleteBoardgame(id);
           boardgameStore.getBoardgames();
-          /* playerStore.deletePlayer(id);
-          playerStore.getPlayers(); */
-          /* emitFunction(); */
           updateBoardgameList();
           Swal.fire("¡Éxito!", name + " fue borrado de la ludoteca", "success");
           console.log(`${id} ${name} borrado`);
@@ -61,7 +64,7 @@ export default {
       });
     };
 
-    return { confirmDelete };
+    return { confirmDelete,  startSaveGame };
   },
 };
 </script>
