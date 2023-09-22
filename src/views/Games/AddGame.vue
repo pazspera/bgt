@@ -1,11 +1,11 @@
 <template>
-  <div @passSelectedBoardgame="getBoardgameId">
+  <div>
     <h1>The adding of the game</h1>
   </div>
 </template>
 
 <script>
-import { computed, onMounted /* ref */ } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useBoardGameStore } from "@/stores/BoardGameStore";
 import { useGameStore } from "@/stores/GameStore";
 
@@ -19,25 +19,32 @@ export default {
       type: Object,
     },
   },
-  setup(props) {
+  setup() {
     const boardGameStore = useBoardGameStore();
     /* const boardGameId = ref(null); */
     const gameStore = useGameStore();
     // The computed here keeps a sync copy of the value
     // of selectedBoardGameId
     const selectedBoardGameId = computed(() => gameStore.selectedBoardGameId);
-
-    const getBoardgameId = () => {
-      console.log("received boardgameID: " + props.boardGame.id);
-    };
+    // This object is going to hold the boardgame
+    const boardGame = ref(null);
 
     onMounted(async () => {
       console.log("Selected boardgame ID: " + selectedBoardGameId.value);
-      const boardGame = await boardGameStore.getBoardgame(selectedBoardGameId.value);
-      console.log(boardGame);
+      try {
+        boardGame.value = await boardGameStore.getBoardgame(selectedBoardGameId.value);
+        console.log("The boardgame is: " + boardGame.value);
+        console.log("Tipo de boardGame.value: " + typeof boardGame.value);
+
+        if (boardGame.value) {
+          console.log("BoardGame: " + boardGame.value.name);
+        }
+      } catch (err) {
+        console.err("Error fetching boardgame:" + err);
+      }
     });
 
-    return { getBoardgameId };
+    return {};
   },
 };
 </script>
