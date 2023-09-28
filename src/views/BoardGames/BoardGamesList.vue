@@ -26,6 +26,7 @@ export default {
     const boardGameStore = useBoardGameStore();
 
     boardGameStore.getBoardgames();
+    console.log(boardGameStore);
 
     // Here it listens to the child component that
     // emits the event when the users confirms the

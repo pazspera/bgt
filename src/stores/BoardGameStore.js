@@ -36,8 +36,12 @@ export const useBoardGameStore = defineStore("boardGameStore", {
         }
 
         const data = await res.json();
-        console.log("Respuesta getBoardgame de la API: " + data);
+        console.log("data");
+        console.log(data);
         this.boardGame = data;
+        console.log("this.boardgame");
+        console.log(this.boardGame);
+        return this.boardGame;
       } catch (err) {
         console.error("Error fetcheando boardgame: " + err);
       }
