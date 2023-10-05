@@ -55,11 +55,12 @@ export default {
     // the form
     const showForm = ref(false);
 
+    // REVIEW THE DATE FORMAT TO MAKE SURE IT MATCHES THE API
     const gameDate = ref(new Date());
 
     // Form to add the new game
     const newGameForm = reactive({
-      startDate: "",
+      startDate: gameDate,
       boardGameId: "",
       playerIdsList: [],
       winnerPlayerId: "",
@@ -99,6 +100,12 @@ export default {
 
       // Asign boardgame name to show it on input
       boardGameName.value = boardGame.value.name;
+
+      // Asign boardGameId to newGameForm once it's loaded
+      newGameForm.boardGameId = boardGame.value.id;
+
+      console.log(newGameForm.startDate);
+      console.log(newGameForm.boardGameId);
     });
 
     onMounted(async () => {
