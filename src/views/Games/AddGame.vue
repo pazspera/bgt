@@ -1,23 +1,34 @@
 <template>
   <HeroSection :title="heroTitle" :bg-class="bgClass" />
   <v-container class="my-5">
-    <v-row >
-      <v-col cols="12" md="8" offset-md="2">
+    <v-row v-if="showForm">
+      <v-col cols="12" lg="8" offset-lg="2">
+        <h2>Nueva partida de {{ boardGameName }}</h2>
+      </v-col>
+      <v-col cols="12" lg="8" offset-lg="2">
         <v-text-field label="Juego" model-value="boardGameName"></v-text-field>
+      </v-col>
+    </v-row>
+
+    <!-- Loading Spinner -->
+    <v-row v-if="!showForm">
+      <v-col cols="12" lg="8" offset-lg="2">
+        <LoadingSpinner />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { computed, onBeforeMount, onMounted, reactive, ref } from "vue";
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
 import { useBoardGameStore } from "@/stores/BoardGameStore";
 import { useGameStore } from "@/stores/GameStore";
 import HeroSection from "@/components/HeroSection.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "AddGame",
-  components: { HeroSection },
+  components: { HeroSection, LoadingSpinner },
   data() {
     return {
       heroTitle: "Agregar nueva partida",
@@ -70,6 +81,10 @@ export default {
         console.err("Error fetching boardgame:" + err);
       }
 
+      watch(showForm, (newValue) => {
+        console.log("showForm value changed: ", newValue);
+      });
+
       // Asign the value of the boardGameId that's
       // coming from the boardGameCard to
       // newGameForm once it's been fetched
@@ -85,7 +100,7 @@ export default {
       console.log("Selected boardgame ID: " + selectedBoardGameId.value);
     });
 
-    return { newGameForm };
+    return { newGameForm, boardGame, showForm, boardGameName };
   },
 };
 </script>
