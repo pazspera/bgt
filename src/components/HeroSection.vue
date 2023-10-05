@@ -1,13 +1,13 @@
 <template>
   <section class="hero" :class="bgClass">
     <v-container class="hero__container">
-      <div class="row">
-        <div class="col-12 col-md-9 col-lg-7">
+      <v-row>
+        <v-col class="col-12 col-md-9 col-lg-7">
           <h1 class="hero__title mb-5">
             <span>{{ title }}</span>
           </h1>
-        </div>
-      </div>
+        </v-col>
+      </v-row>
     </v-container>
   </section>
 </template>
