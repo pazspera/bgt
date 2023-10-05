@@ -5,8 +5,11 @@
       <v-col cols="12" lg="8" offset-lg="2">
         <h2>Nueva partida de {{ boardGameName }}</h2>
       </v-col>
+
       <v-col cols="12" lg="8" offset-lg="2">
-        <v-text-field label="Juego" model-value="boardGameName"></v-text-field>
+        <v-form>
+          <VueDatePicker v-model="gameDate" auto-apply :enable-time-picker="false"></VueDatePicker>
+        </v-form>
       </v-col>
     </v-row>
 
@@ -25,10 +28,11 @@ import { useBoardGameStore } from "@/stores/BoardGameStore";
 import { useGameStore } from "@/stores/GameStore";
 import HeroSection from "@/components/HeroSection.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
 
 export default {
   name: "AddGame",
-  components: { HeroSection, LoadingSpinner },
+  components: { HeroSection, LoadingSpinner, VueDatePicker },
   data() {
     return {
       heroTitle: "Agregar nueva partida",
@@ -50,6 +54,8 @@ export default {
     // boardGame.value exists, it changes to true to show
     // the form
     const showForm = ref(false);
+
+    const gameDate = ref(new Date());
 
     // Form to add the new game
     const newGameForm = reactive({
@@ -100,7 +106,7 @@ export default {
       console.log("Selected boardgame ID: " + selectedBoardGameId.value);
     });
 
-    return { newGameForm, boardGame, showForm, boardGameName };
+    return { newGameForm, boardGame, showForm, boardGameName, gameDate };
   },
 };
 </script>

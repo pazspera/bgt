@@ -3,11 +3,7 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
-// Old Vuetify installation
-/* import Vuetify from "vuetify";
-import "vuetify/dist/vuetify.min.css"; */
 import "vuetify/styles";
-// import { createVuetify } from "vuetify/lib/framework.mjs";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -18,7 +14,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
 import VueSweetalert2 from "vue-sweetalert2";
-/* import "sweetalert2/dist/css/sweetalert2.min.css"; */
+
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 const customTheme = {
   dark: false,
@@ -65,4 +63,5 @@ app.use(vuetify);
 app.use(router);
 app.use(createPinia());
 app.use(VueSweetalert2);
+app.component("VueDatePicker", VueDatePicker);
 app.mount("#app");
