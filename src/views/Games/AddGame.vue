@@ -18,7 +18,7 @@
             <!-- Players -->
             <v-row>
               <v-col>
-                <v-select :items="playersForSelect" item-title="name" item-value="id" chips multiple label="Selecciona los jugadores"> </v-select>
+                <v-select :items="playersForSelect.value" item-title="Name" item-value="Id" chips multiple label="Selecciona los jugadores"> </v-select>
               </v-col>
             </v-row>
           </v-container>
@@ -102,12 +102,6 @@ export default {
         // Fetching boardgame
         boardGame.value = await boardGameStore.getBoardgame(selectedBoardGameId.value);
 
-        if (boardGame.value) {
-          /* console.log("BoardGame: " + boardGame.value.name);
-          console.log(showForm.value); */
-          showForm.value = true;
-          /* console.log(showForm.value); */
-        }
       } catch (err) {
         console.err("Error fetching boardgame:" + err);
       }
@@ -117,31 +111,26 @@ export default {
         const fetchedPlayers = await playerStore.getPlayers();
         console.log(fetchedPlayers);
 
-        playersForSelect.value = fetchedPlayers.map((player) => ({
-          name: player.name,
-          id: player.id,
-        }));
+        playersForSelect.value = fetchedPlayers;
 
-        console.log("playersForSelect" + JSON.stringify(playersForSelect.value));
-
-        /* playersForSelect.splice(0, playersForSelect.length, ...fetchedPlayers); */
-
-        // playersForSelect is an object if I assign it directly
-        // gotta make sure it's an array and push all objects in it
-        if (playersForSelect.length > 0) {
-          console.log("Players for select:", playersForSelect);
-          console.log("typeof players for select:", typeof playersForSelect);
-        }
-        /* if (playersForSelect.value) {
-          console.log("Players for select: " + playersForSelect.value);
-          console.log("typeof players for select:" + typeof playersForSelect);
-        } */
       } catch (err) {
-        console.err("Error fetching all players: " + err);
+        console.log("Error fetching all players: " + err);
+      }
+
+      // showForm should go to true only when all
+      // the fetched info is loaded in the corresponding places
+      if (boardGame.value && playersForSelect.value) {
+        console.log("shifting to true");
+        showForm.value = true;
+        console.log(playersForSelect.value);
       }
 
       watch(showForm, (newValue) => {
         console.log("showForm value changed: ", newValue);
+      });
+
+      watch(playersForSelect, (newValue) => {
+        console.log("can watch solve this?", newValue);
       });
 
       // Asign the value of the boardGameId that's
