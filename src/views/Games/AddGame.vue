@@ -18,7 +18,7 @@
             <!-- Players -->
             <v-row>
               <v-col>
-                <v-select :items="playersForSelect.value" item-title="Name" item-value="Id" chips multiple label="Selecciona los jugadores"> </v-select>
+                <v-select v-model="selectedPlayers" :items="playersForSelect.value" item-title="Name" item-value="Id" chips multiple label="Selecciona los jugadores"> </v-select>
               </v-col>
             </v-row>
           </v-container>
@@ -73,19 +73,20 @@ export default {
     // REVIEW THE DATE FORMAT TO MAKE SURE IT MATCHES THE API
     const gameDate = ref(new Date());
 
-    // Player select
-    // 1. Fetch all players from store
-    // 2. Loop over the store directly in the select
-    // The issue is getting the data from the store
-    // can't use a v-for to loop them
-    // Maybe creating a ref to do it locally on this view
+    // List of fetched players to show on the select
     const playersForSelect = reactive([]);
+
+    // NEXT!!
+    // Gotta save an array of ids on newGameForm.playerIdsList
+    // 1. Am I getting back a list of objects from the select?
+    // 2. Maybe a forEach and push the id to an array?
+    const selectedPlayers = ref([]);
 
     // Form to add the new game
     const newGameForm = reactive({
       startDate: gameDate,
       boardGameId: "",
-      playerIdsList: [],
+      playerIdsList: selectedPlayers,
       winnerPlayerId: "",
       description: "",
     });
@@ -101,7 +102,6 @@ export default {
 
         // Fetching boardgame
         boardGame.value = await boardGameStore.getBoardgame(selectedBoardGameId.value);
-
       } catch (err) {
         console.err("Error fetching boardgame:" + err);
       }
@@ -112,7 +112,6 @@ export default {
         console.log(fetchedPlayers);
 
         playersForSelect.value = fetchedPlayers;
-
       } catch (err) {
         console.log("Error fetching all players: " + err);
       }
@@ -129,8 +128,17 @@ export default {
         console.log("showForm value changed: ", newValue);
       });
 
-      watch(playersForSelect, (newValue) => {
-        console.log("can watch solve this?", newValue);
+      // This watch shows the changes made to newGameForm
+      // which is binded to the form and will be pushed
+      // as a new game
+      watch(newGameForm, (newValue) => {
+        console.log("change in newGameForm", newValue);
+        console.log("startDate", newGameForm.startDate);
+        console.log("boardGameId", newGameForm.boardGameId);
+        console.log("playerIdsList", newGameForm.playerIdsList);
+        console.log("winnerPlayerId", newGameForm.winnerPlayerId);
+        console.log("description", newGameForm.description);
+
       });
 
       // Asign the value of the boardGameId that's
@@ -145,7 +153,7 @@ export default {
       newGameForm.boardGameId = boardGame.value.id;
     });
 
-    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect };
+    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect, selectedPlayers };
   },
 };
 </script>
