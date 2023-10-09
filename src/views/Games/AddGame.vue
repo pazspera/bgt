@@ -25,7 +25,7 @@
                   item-value="Id"
                   chips
                   multiple
-                  label="Selecciona lxs jugadores"
+                  label="¿Quiénes jugaron?"
                   persistent-hint
                   hint="Hace click en unx jugadorx para seleccionarlx"
                   color="primary"
@@ -36,7 +36,7 @@
             <!-- Select Winner -->
             <v-row>
               <v-col>
-                <v-select label="¿Quién ganó?" color="primary"></v-select>
+                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect"></v-select>
               </v-col>
             </v-row>
             <!-- Notes -->
@@ -107,12 +107,14 @@ export default {
     const playersForSelect = reactive([]);
     // Ref with the selected players that passes to the form
     const selectedPlayers = ref([]);
+    const enableWinnerSelect = computed(() => selectedPlayers.value.length < 1);
 
     // NEXT
     // El select para seleccionar partida debería tener solamente
     // los jugadores que fueron seleccionados
     // Cada vez que se agregue un jugador, fetchearlo individualemnte
     // para agregarlo al segundo select
+    // Por default, que esté disabled hasta que se elijan lxs jugadores
 
     // Form to add the new game
     const newGameForm = reactive({
@@ -172,6 +174,10 @@ export default {
         console.log("description", newGameForm.description);
       });
 
+      watch(enableWinnerSelect, (newValue) => {
+        console.log("enableWinnerSelect", newValue);
+      });
+
       // Asign the value of the boardGameId that's
       // coming from the boardGameCard to
       // newGameForm once it's been fetched
@@ -184,7 +190,7 @@ export default {
       newGameForm.boardGameId = boardGame.value.id;
     });
 
-    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect, selectedPlayers };
+    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect, selectedPlayers, enableWinnerSelect };
   },
 };
 </script>
