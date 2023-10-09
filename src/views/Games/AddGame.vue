@@ -18,7 +18,37 @@
             <!-- Players -->
             <v-row>
               <v-col>
-                <v-select v-model="selectedPlayers" :items="playersForSelect.value" item-title="Name" item-value="Id" chips multiple label="Selecciona los jugadores"> </v-select>
+                <v-select
+                  v-model="selectedPlayers"
+                  :items="playersForSelect.value"
+                  item-title="Name"
+                  item-value="Id"
+                  chips
+                  multiple
+                  label="Selecciona lxs jugadores"
+                  persistent-hint
+                  hint="Hace click en unx jugadorx para seleccionarlx"
+                  color="primary"
+                >
+                </v-select>
+              </v-col>
+            </v-row>
+            <!-- Select Winner -->
+            <v-row>
+              <v-col>
+                <v-select label="¿Quién ganó?" color="primary"></v-select>
+              </v-col>
+            </v-row>
+            <!-- Notes -->
+            <v-row>
+              <v-col>
+                <v-textarea label="Notas" v-model="newGameForm.description" color="primary"></v-textarea>
+              </v-col>
+            </v-row>
+            <!-- Btn -->
+            <v-row>
+              <v-col>
+                <v-btn type="submit" color="primary">Guardar partida</v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -75,12 +105,14 @@ export default {
 
     // List of fetched players to show on the select
     const playersForSelect = reactive([]);
-
-    // NEXT!!
-    // Gotta save an array of ids on newGameForm.playerIdsList
-    // 1. Am I getting back a list of objects from the select?
-    // 2. Maybe a forEach and push the id to an array?
+    // Ref with the selected players that passes to the form
     const selectedPlayers = ref([]);
+
+    // NEXT
+    // El select para seleccionar partida debería tener solamente
+    // los jugadores que fueron seleccionados
+    // Cada vez que se agregue un jugador, fetchearlo individualemnte
+    // para agregarlo al segundo select
 
     // Form to add the new game
     const newGameForm = reactive({
@@ -138,7 +170,6 @@ export default {
         console.log("playerIdsList", newGameForm.playerIdsList);
         console.log("winnerPlayerId", newGameForm.winnerPlayerId);
         console.log("description", newGameForm.description);
-
       });
 
       // Asign the value of the boardGameId that's
