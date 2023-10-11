@@ -7,7 +7,7 @@
       </v-col>
 
       <v-col cols="12" lg="8" offset-lg="2">
-        <v-form>
+        <v-form @submit.prevent="submitGame">
           <v-container>
             <!-- Date -->
             <v-row>
@@ -36,7 +36,7 @@
             <!-- Select Winner -->
             <v-row>
               <v-col>
-                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect"></v-select>
+                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="playersForSelect.value" item-title="Name" item-value="Id"></v-select>
               </v-col>
             </v-row>
             <!-- Notes -->
@@ -109,6 +109,8 @@ export default {
     const selectedPlayers = ref([]);
     const enableWinnerSelect = computed(() => selectedPlayers.value.length < 1);
 
+    const selectWinnerFromThesePlayers = ref([]);
+
     // NEXT
     // El select para seleccionar partida debería tener solamente
     // los jugadores que fueron seleccionados
@@ -128,6 +130,57 @@ export default {
     // Saving the boardgame name on a variable
     // to use v-model and show it on the Juego input
     const boardGameName = ref(null);
+
+    const submitGame = () => {
+      console.log("Submitting the form!!");
+      console.log("startDate", newGameForm.startDate);
+      console.log("boardGameId", newGameForm.boardGameId);
+      console.log("playerIdsList", newGameForm.playerIdsList);
+      console.log("winnerPlayerId", newGameForm.winnerPlayerId);
+      console.log("description", newGameForm.description);
+    };
+
+    watch(enableWinnerSelect, (newValue) => {
+      console.log("enableWinnerSelect", newValue);
+
+      // When this is true, the user selected players
+      // Then here we loop through the selected players,
+      // fetch them individually and add them to
+      // selectWinnerFromThesePlayers[] so the winner can
+      // be selected
+      if (!enableWinnerSelect.value) {
+        console.log("enableWinnerSelect is false");
+        console.log("selected players");
+        console.log(selectedPlayers.value);
+
+        // This watch makes sure selectedPlayers is updated
+        // if the user adds a new player o unselects one
+      }
+    });
+
+    // Whenever selectedPlayers changes (meaning, the user
+    // selects a player), fetch each player and add it to
+    // selectWinnerFromThesePlayers
+    watch(selectedPlayers, () => {
+      // it's not printing when the first player is selected
+      if (selectedPlayers.value.length != null) {
+        selectedPlayers.value.forEach(async (player) => {
+          console.log(player);
+          console.log(typeof player);
+          let newPlayer = await playerStore.getPlayer(player);
+          console.log("new player");
+          console.log(newPlayer);
+        });
+      }
+    });
+
+    // Maybe the function to fetch the players should be
+    // outside this function and be async. Kinda feel the
+    // watch and async are causing a problem
+    /* const fetchPlayer = async (playerId) => {
+      let result = await playerStore.getPlayer()
+    } */
+
 
     onBeforeMount(async () => {
       try {
@@ -165,18 +218,14 @@ export default {
       // This watch shows the changes made to newGameForm
       // which is binded to the form and will be pushed
       // as a new game
-      watch(newGameForm, (newValue) => {
+      /* watch(newGameForm, (newValue) => {
         console.log("change in newGameForm", newValue);
         console.log("startDate", newGameForm.startDate);
         console.log("boardGameId", newGameForm.boardGameId);
         console.log("playerIdsList", newGameForm.playerIdsList);
         console.log("winnerPlayerId", newGameForm.winnerPlayerId);
         console.log("description", newGameForm.description);
-      });
-
-      watch(enableWinnerSelect, (newValue) => {
-        console.log("enableWinnerSelect", newValue);
-      });
+      }); */
 
       // Asign the value of the boardGameId that's
       // coming from the boardGameCard to
@@ -190,7 +239,7 @@ export default {
       newGameForm.boardGameId = boardGame.value.id;
     });
 
-    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect, selectedPlayers, enableWinnerSelect };
+    return { newGameForm, boardGame, showForm, boardGameName, gameDate, playerStore, playersForSelect, selectedPlayers, enableWinnerSelect, submitGame, selectWinnerFromThesePlayers };
   },
 };
 </script>

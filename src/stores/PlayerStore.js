@@ -40,6 +40,7 @@ export const usePlayerStore = defineStore("playerStore", {
       });
       const data = await res.json();
       this.player = data;
+      return this.player;
     },
     checkIfPlayerAlreadyExists(name) {
       // It loops through the players, if the new name
