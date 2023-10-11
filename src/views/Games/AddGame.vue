@@ -36,7 +36,7 @@
             <!-- Select Winner -->
             <v-row>
               <v-col>
-                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="playersForSelect.value" item-title="Name" item-value="Id"></v-select>
+                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="selectWinnerFromThesePlayers.value" item-title="Name" item-value="Id"></v-select>
               </v-col>
             </v-row>
             <!-- Notes -->
@@ -109,7 +109,7 @@ export default {
     const selectedPlayers = ref([]);
     const enableWinnerSelect = computed(() => selectedPlayers.value.length < 1);
 
-    const selectWinnerFromThesePlayers = ref([]);
+    const selectWinnerFromThesePlayers = reactive([]);
 
     // NEXT
     // El select para seleccionar partida debería tener solamente
@@ -162,14 +162,44 @@ export default {
     // selects a player), fetch each player and add it to
     // selectWinnerFromThesePlayers
     watch(selectedPlayers, () => {
+      let newPlayer = {};
+
       // it's not printing when the first player is selected
       if (selectedPlayers.value.length != null) {
-        selectedPlayers.value.forEach(async (player) => {
-          console.log(player);
-          console.log(typeof player);
-          let newPlayer = await playerStore.getPlayer(player);
+        selectedPlayers.value.forEach(async (playerId) => {
+          console.log(playerId);
+          console.log(typeof playerId);
+          newPlayer = await playerStore.getPlayer(playerId);
           console.log("new player");
           console.log(newPlayer);
+          // BEFORE ADDING, gotta check if the id is already
+          // in selectWinnerFromThesePlayers
+        });
+
+        // This is executing before newPlayer gets its
+        // value. Add check to see if the object is empty
+
+        // The check works, but it's still executed before the fetch for newPlayer
+        if (Object.keys(newPlayer).length === 0) {
+          // This has issues, it's not showing on the template
+          /* selectWinnerFromThesePlayers.value.push(newPlayer);
+          console.log("selectWinnerFromThesePlayers");
+          console.log(selectWinnerFromThesePlayers); */
+          console.log("the object is empty");
+        }
+
+        // THIS IS WERE YOU'RE AT
+        // Trying to find a way to make the push of newPlayer come
+        // AFTER newPlayer is fetched
+        // Perhaps leaving it inside the forEach wasn't so bad after all
+        // ALSO, gotta add the check to see if it already exists in 
+        // the selectWinnerFromThesePlayers[]
+        // If I don't, any time the user touches one of the players,
+        // it'll be added to the []
+        watch(newPlayer, () => {
+          if (Object.keys(newPlayer).length === 0) {
+            console.log("newPlayer changed and it is no longer empty");
+          }
         });
       }
     });
@@ -180,7 +210,6 @@ export default {
     /* const fetchPlayer = async (playerId) => {
       let result = await playerStore.getPlayer()
     } */
-
 
     onBeforeMount(async () => {
       try {
