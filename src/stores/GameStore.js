@@ -7,6 +7,7 @@ export const useGameStore = defineStore("gameStore", {
   actions: {
     setSelectedBoardGameId(id) {
       this.selectedBoardGameId = id;
+      return this.selectedBoardGameId;
     },
   },
 });

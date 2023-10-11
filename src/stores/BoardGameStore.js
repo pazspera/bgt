@@ -22,6 +22,7 @@ export const useBoardGameStore = defineStore("boardGameStore", {
 
       const data = await res.json();
       this.boardGames = data;
+      return this.boardGames;
     },
     async getBoardgame(id) {
       try {
