@@ -26,6 +26,7 @@ export const usePlayerStore = defineStore("playerStore", {
       const res = await fetch(uri, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
       const data = await res.json();
 
@@ -37,6 +38,7 @@ export const usePlayerStore = defineStore("playerStore", {
       const res = await fetch(uri, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
       const data = await res.json();
       this.player = data;
@@ -88,6 +90,7 @@ export const usePlayerStore = defineStore("playerStore", {
         method: "POST",
         body: JSON.stringify(player),
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
       debugger;
       /* 
@@ -107,6 +110,7 @@ export const usePlayerStore = defineStore("playerStore", {
       const res = await fetch(uri, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
 
       if (res.error) {
@@ -117,6 +121,7 @@ export const usePlayerStore = defineStore("playerStore", {
       const res = await fetch(process.env.VUE_APP_BGT_BASE_URL + "/player/update/" + player.Id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include',
         body: JSON.stringify({
           id: player.Id,
           name: newName,

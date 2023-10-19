@@ -18,6 +18,7 @@ export const useBoardGameStore = defineStore("boardGameStore", {
       const res = await fetch(uri, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
 
       const data = await res.json();
@@ -30,6 +31,7 @@ export const useBoardGameStore = defineStore("boardGameStore", {
         const res = await fetch(uri, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
+          credentials: 'include'
         });
 
         if (!res.ok) {
@@ -57,6 +59,7 @@ export const useBoardGameStore = defineStore("boardGameStore", {
       const res = await fetch(uri, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include'
       });
 
       if (res.error) {
