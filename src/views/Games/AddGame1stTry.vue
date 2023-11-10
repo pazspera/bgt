@@ -18,8 +18,7 @@
             <!-- Players -->
             <v-row>
               <v-col>
-                <SelectPlayers />
-                <!-- <v-select
+                <v-select
                   v-model="selectedPlayers"
                   :items="playersForSelect.value"
                   item-title="Name"
@@ -31,13 +30,13 @@
                   hint="Hace click en unx jugadorx para seleccionarlx"
                   color="primary"
                 >
-                </v-select> -->
+                </v-select>
               </v-col>
             </v-row>
             <!-- Select Winner -->
             <v-row>
               <v-col>
-                <!--  <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="selectWinnerFromThesePlayers.value" item-title="Name" item-value="Id"></v-select> -->
+                <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="selectWinnerFromThesePlayers.value" item-title="Name" item-value="Id"></v-select>
               </v-col>
             </v-row>
             <!-- Notes -->
@@ -74,11 +73,10 @@ import { usePlayerStore } from "@/stores/PlayerStore";
 import HeroSection from "@/components/HeroSection.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
-import SelectPlayers from "@/components/Games/SelectPlayers.vue";
 
 export default {
   name: "AddGame",
-  components: { HeroSection, LoadingSpinner, VueDatePicker, SelectPlayers },
+  components: { HeroSection, LoadingSpinner, VueDatePicker },
   data() {
     return {
       heroTitle: "Agregar nueva partida",
@@ -133,6 +131,14 @@ export default {
     // to use v-model and show it on the Juego input
     const boardGameName = ref(null);
 
+    // This function will fetch the individual player by id
+    // once selected on selectedPlayers. It returns
+    // the player object so that can be stored in
+    // selectWinnerFromThesePlayers
+    const fetchPlayer = async (id) => {
+      return playerStore.getPlayer(id);
+    };
+
     const submitGame = () => {
       console.log("Submitting the form!!");
       console.log("startDate", newGameForm.startDate);
@@ -141,6 +147,101 @@ export default {
       console.log("winnerPlayerId", newGameForm.winnerPlayerId);
       console.log("description", newGameForm.description);
     };
+
+    watch(enableWinnerSelect, (newValue) => {
+      console.log("enableWinnerSelect", newValue);
+
+      // When this is true, the user selected players
+      // Then here we loop through the selected players,
+      // fetch them individually and add them to
+      // selectWinnerFromThesePlayers[] so the winner can
+      // be selected
+      if (!enableWinnerSelect.value) {
+        console.log("enableWinnerSelect is false");
+        console.log("selected players");
+        console.log(selectedPlayers.value);
+
+        // This watch makes sure selectedPlayers is updated
+        // if the user adds a new player o unselects one
+      }
+    });
+
+    // Whenever selectedPlayers changes (meaning, the user
+    // selects a player), fetch each player and add it to
+    // selectWinnerFromThesePlayers
+    watch(selectedPlayers, () => {
+      // STARTING OVER
+      // 1. When the user clicks on a player, I want to check that id on selectedPlayers
+      // - if the id is not on the array, push it
+      // - if the id is on the array, delete it
+      // 2. Fetch the info on the selected player
+      // 3. Show the selected players in selectWinnerFromThesePlayers
+      // 4. Everytime there's a change on selectedPlayers, delete everything from
+      //    selectWinnerFromThesePlayers and refetch
+
+      if (selectedPlayers.value.length != null) {
+        selectedPlayers.value.forEach(async (playerId) => {
+          console.log(playerId);
+          console.log("check the array that shows the selected players");
+          console.log(selectWinnerFromThesePlayers.length);
+        });
+
+        // If selectWinnerFromThesePlayers is empty, just
+        // push the player in
+        if (selectWinnerFromThesePlayers.length === 0) {
+          console.log("selectWinnerFromThesePlayers is empty");
+
+          selectedPlayers.value.forEach(async (playerId) => {
+            let newPlayer = {};
+            newPlayer = fetchPlayer(playerId);
+            console.log(newPlayer);
+          });
+        }
+
+        // If selectWinnerFromThesePlayers has at least
+        // 1 player, then we check if the player already exists
+      }
+
+      // PREVIOUS TRY
+      // it's not printing when the first player is selected
+      /* if (selectedPlayers.value.length != null) {
+        selectedPlayers.value.forEach(async (playerId) => {
+          console.log(playerId);
+          console.log(typeof playerId);
+          newPlayer = await playerStore.getPlayer(playerId);
+          console.log("new player");
+          console.log(newPlayer);
+          // BEFORE ADDING, gotta check if the id is already
+          // in selectWinnerFromThesePlayers
+        });
+
+        // This is executing before newPlayer gets its
+        // value. Add check to see if the object is empty
+
+        // The check works, but it's still executed before the fetch for newPlayer
+        if (Object.keys(newPlayer).length === 0) {
+          // This has issues, it's not showing on the template
+          // selectWinnerFromThesePlayers.value.push(newPlayer);
+          // console.log("selectWinnerFromThesePlayers");
+          // console.log(selectWinnerFromThesePlayers); 
+          console.log("the object is empty");
+        }
+
+        // THIS IS WERE YOU'RE AT
+        // Trying to find a way to make the push of newPlayer come
+        // AFTER newPlayer is fetched
+        // Perhaps leaving it inside the forEach wasn't so bad after all
+        // ALSO, gotta add the check to see if it already exists in 
+        // the selectWinnerFromThesePlayers[]
+        // If I don't, any time the user touches one of the players,
+        // it'll be added to the []
+        watch(newPlayer, () => {
+          if (Object.keys(newPlayer).length === 0) {
+            console.log("newPlayer changed and it is no longer empty");
+          }
+        });
+      } */
+    });
 
     // Maybe the function to fetch the players should be
     // outside this function and be async. Kinda feel the
@@ -181,6 +282,18 @@ export default {
       watch(showForm, (newValue) => {
         console.log("showForm value changed: ", newValue);
       });
+
+      // This watch shows the changes made to newGameForm
+      // which is binded to the form and will be pushed
+      // as a new game
+      /* watch(newGameForm, (newValue) => {
+        console.log("change in newGameForm", newValue);
+        console.log("startDate", newGameForm.startDate);
+        console.log("boardGameId", newGameForm.boardGameId);
+        console.log("playerIdsList", newGameForm.playerIdsList);
+        console.log("winnerPlayerId", newGameForm.winnerPlayerId);
+        console.log("description", newGameForm.description);
+      }); */
 
       // Asign the value of the boardGameId that's
       // coming from the boardGameCard to
