@@ -19,25 +19,12 @@
             <v-row>
               <v-col>
                 <SelectPlayers />
-                <!-- <v-select
-                  v-model="selectedPlayers"
-                  :items="playersForSelect.value"
-                  item-title="Name"
-                  item-value="Id"
-                  chips
-                  multiple
-                  label="¿Quiénes jugaron?"
-                  persistent-hint
-                  hint="Hace click en unx jugadorx para seleccionarlx"
-                  color="primary"
-                >
-                </v-select> -->
               </v-col>
             </v-row>
             <!-- Select Winner -->
             <v-row>
               <v-col>
-                <!--  <v-select label="¿Quién ganó?" color="primary" :disabled="enableWinnerSelect" :items="selectWinnerFromThesePlayers.value" item-title="Name" item-value="Id"></v-select> -->
+                <Select-winner />
               </v-col>
             </v-row>
             <!-- Notes -->
@@ -75,10 +62,11 @@ import HeroSection from "@/components/HeroSection.vue";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import SelectPlayers from "@/components/Games/SelectPlayers.vue";
+import SelectWinner from "@/components/Games/SelectWinner.vue";
 
 export default {
   name: "AddGame",
-  components: { HeroSection, LoadingSpinner, VueDatePicker, SelectPlayers },
+  components: { HeroSection, LoadingSpinner, VueDatePicker, SelectPlayers, SelectWinner },
   data() {
     return {
       heroTitle: "Agregar nueva partida",
@@ -166,6 +154,9 @@ export default {
         console.log(fetchedPlayers);
 
         playersForSelect.value = fetchedPlayers;
+        // Pass playersForSelect as a prop to
+        // SelectPlayers, so they show the options
+        
       } catch (err) {
         console.log("Error fetching all players: " + err);
       }
